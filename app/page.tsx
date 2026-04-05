@@ -21,9 +21,9 @@ const Home = () => {
               Cleaning Sewa
             </div>
 
-            <p className="text-[18px] max-w-[600px] leading-relaxed opacity-95">
-              <h1>Professional cleaning services in Kathmandu, Nepal. </h1>
-            </p>
+            <h1 className="text-[18px] max-w-[600px] leading-relaxed opacity-95">
+              Professional cleaning services in Kathmandu, Nepal.
+            </h1>
 
             <div className="mt-8 flex gap-4">
           <Link

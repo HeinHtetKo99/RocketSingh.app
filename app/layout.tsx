@@ -10,7 +10,7 @@ import RoadBlock from '../components/Roadblock';
 // import BrowserCompatibilityWarning from '../components/BrowserCompatibilityWarning';
 import CookieConsent from '../components/CookieConsent';
 import { Suspense } from 'react';
-import ExitPopup from '@/components/ExitPopup';
+
 
 export const metadata = {
   title: "Cleaning Sewa | Professional cleaning Services in Kathmandu, Nepal",
@@ -108,7 +108,7 @@ export default function RootLayout({ children }:Readonly<{
             src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
           />
         </noscript>
-        <ExitPopup/>
+        
         <CookieConsent />
         {/* <BrowserCompatibilityWarning /> */}
         <RoadBlock />

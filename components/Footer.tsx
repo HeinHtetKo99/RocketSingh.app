@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import NewsLetter from "./NewsLetter";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <>
-      <NewsLetter />
+      
       <footer className="relative footer pt-16 pb-10 border-t z-10">
 
         {/* TOP SECTION */}
@@ -47,7 +46,7 @@ const Footer = () => {
               <h3 className="font-semibold mb-3 text-[16px]">Browse More</h3>
               <ul className="space-y-2 text-[15px] leading-[1.6] pl-0">
                 <li className="py-1 cursor-pointer">
-                  <Link href="/vmgo" className="hover:text-green-700">Mission & Vision</Link>
+                  <Link href="/vmgo" className="hover:text-green-700">Vision & Mission</Link>
                 </li>
                 <li className="py-1 cursor-pointer">
                   <Link href="/history" className="hover:text-green-700">History</Link>
