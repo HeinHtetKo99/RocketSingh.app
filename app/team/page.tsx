@@ -49,8 +49,18 @@ const OurTeam = () => {
               <div className="mt-4">
                 <p className="font-normal text-base md:text-[1em]">Follow Ramesh on social media:</p>
                 <div className="flex gap-3 mt-2">
-                  <img src="/icons/x.svg" className="w-5 h-5 cursor-pointer hover:opacity-75" />
-                  <img src="/icons/linkedin.svg" className="w-5 h-5 cursor-pointer hover:opacity-75" />
+                  {/* <img src="/icons/x.svg" className="w-5 h-5 cursor-pointer hover:opacity-75" /> */}
+                  <a 
+                  href="https://www.linkedin.com/in/koiralaramesh/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <img 
+                    src="/icons/linkedin.svg" 
+                    className="w-5 h-5 cursor-pointer hover:opacity-75" 
+                    alt="LinkedIn Profile"
+                  />
+                </a>
                 </div>
               </div>
             </div>

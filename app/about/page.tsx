@@ -52,6 +52,22 @@ export default function About() {
             </p>
             <p className="font-semibold text-gray-800">– Ramesh Koirala, Director</p>
           </div>
+
+          <div className="flex gap-3 mt-2">
+                  {/* <img src="/icons/x.svg" className="w-5 h-5 cursor-pointer hover:opacity-75" /> */}
+                  <a 
+                  href="https://www.linkedin.com/in/koiralaramesh/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <img 
+                    src="/icons/linkedin.svg" 
+                    className="w-5 h-5 cursor-pointer hover:opacity-75" 
+                    alt="LinkedIn Profile"
+                  />
+                </a>
+                </div>
+                
         </div>
       </section>
     </main>
