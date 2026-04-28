@@ -10,19 +10,19 @@ export default function Contact() {
     {
       name: "Ramesh Koirala",
       role: "Director",
-      phone: "+977981152774",
+      phone: "+9779852024365",
       image: "/contact/1.png",
     },
     {
       name: "Sanjana Lama",
       role: "Operations Manager",
-      phone: "+977981152774",
+      phone: "+9779852024365",
       image: "/contact/2.png",
     },
     {
       name: "Sudeep Basnet",
       role: "Customer Support Lead",
-      phone: "+977981152774",
+      phone: "+9779852024365",
       image: "/contact/3.png",
     },
   ];
