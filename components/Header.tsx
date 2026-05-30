@@ -2,14 +2,17 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { Phone } from "lucide-react";
 import BrandLogo from "./BrandLogo";
 import SideNavDrawer from "./SideNavDrawer";
+
+const PHONE_HREF = "tel:+919851152774";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [darkIcon, setDarkIcon] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Initialize theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("Theme");
     if (savedTheme === "dark") {
@@ -21,7 +24,13 @@ const Header = () => {
     }
   }, []);
 
-  // Toggle dark/light mode
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const triggerTheme = () => {
     if (document.body.classList.contains("dark")) {
       document.body.classList.remove("dark");
@@ -35,16 +44,17 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <div className="relative max-w-7xl mx-auto flex items-center justify-between py-4 px-3 sm:px-6">
-        {/* Logo */}
+    <header
+      className={`header sticky top-0 z-50 transition-all duration-300 ${
+        scrolled ? "shadow-md py-2" : "shadow-sm py-3"
+      }`}
+    >
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between px-3 sm:px-6">
         <div className="flex items-center">
           <BrandLogo />
         </div>
 
-        {/* Navigation */}
-        <nav className="flex items-center space-x-0 sm:space-x-4">
-          {/* Desktop Links */}
+        <nav className="flex items-center gap-1 sm:gap-2">
           <div className="hidden lg:flex items-center space-x-6">
             <Link href="/" className="text-[16px] hover:text-teal-700">Home</Link>
             <Link href="/about" className="text-[16px] hover:text-teal-700">About</Link>
@@ -65,13 +75,10 @@ const Header = () => {
             </Link>
           </div>
 
-          
-
-          {/* Dark Mode Toggle */}
-          <div className="hidden sm:block">
+          <div className="hidden sm:block lg:ml-2">
             <button
               onClick={triggerTheme}
-              className={`text-2xl cursor-pointer ml-2 rounded-full h-8 w-8 flex items-center justify-center ${
+              className={`text-2xl cursor-pointer rounded-full h-8 w-8 flex items-center justify-center ${
                 darkIcon ? "bg-black text-white rotate-45" : "bg-white text-black"
               }`}
               aria-label="Toggle Dark Mode"
@@ -80,7 +87,16 @@ const Header = () => {
             </button>
           </div>
 
-          {/* Side menu — mobile + desktop */}
+          <div className="flex items-center gap-1 md:hidden">
+            <a
+              href={PHONE_HREF}
+              className="p-2 text-gray-700 hover:text-teal-700 hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="Call Us"
+            >
+              <Phone size={20} />
+            </a>
+          </div>
+
           <SideNavDrawer setIsOpen={setIsOpen} isOpen={isOpen} />
         </nav>
       </div>

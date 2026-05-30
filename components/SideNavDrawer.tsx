@@ -82,11 +82,20 @@ const SideNavDrawer: React.FC<SideNavDrawerProps> = ({ isOpen, setIsOpen }) => {
       <button
         type="button"
         onClick={toggleDrawer}
-        className="flex h-10 items-center justify-center gap-2 rounded-lg px-2 text-teal-800 hover:bg-teal-50 transition lg:px-3"
+        className="flex h-10 w-10 items-center justify-center rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 hover:text-teal-700 md:hidden"
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      >
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      <button
+        type="button"
+        onClick={toggleDrawer}
+        className="hidden md:flex h-10 items-center justify-center gap-2 rounded-lg px-2 text-teal-800 hover:bg-teal-50 transition lg:px-3"
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
       >
         {isOpen ? <X size={22} /> : <Menu size={22} />}
-        <span className="hidden sm:inline text-[15px] font-medium">Menu</span>
+        <span className="text-[15px] font-medium">Menu</span>
       </button>
 
       <div
