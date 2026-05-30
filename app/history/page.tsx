@@ -102,7 +102,7 @@ export default function History() {
                         <div className="p-6 card   rounded-xl shadow-sm hover:shadow-md transition-all">
                             <h3 className="text-xl font-semibold ">2018 – Company Established</h3>
                             <p className=" mt-2 ">
-                                RocketSingh was officially founded in New Delhi, marking the beginning of its journey in delivering professional cleaning services with a commitment to quality and reliability.
+                                RocketSingh was officially founded in Chennai, marking the beginning of its journey in delivering professional cleaning services with a commitment to quality and reliability.
                             </p>
                         </div>
 

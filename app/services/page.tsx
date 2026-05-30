@@ -9,7 +9,7 @@ export default function ServicesPage() {
       <section className="bg-[#0E4541] text-white py-24 px-6 text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Our Services</h1>
         <p className="text-lg md:text-xl max-w-2xl mx-auto">
-          Complete professional cleaning platform for homes, offices, and commercial spaces across India.
+          Complete professional on demand service provider.. across Chennai, India.
         </p>
       </section>
 

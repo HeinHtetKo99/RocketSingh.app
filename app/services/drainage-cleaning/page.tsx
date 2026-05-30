@@ -23,8 +23,8 @@ export default function DrainageCleaning() {
       faqs={[
         { id: 1, question: "Why is gutter cleaning important?", answer: "Clogged gutters cause water overflow, roof damage, and foundation issues. Regular cleaning prevents costly repairs." },
         { id: 2, question: "How often should gutters be cleaned?", answer: "We recommend gutter cleaning twice a year — before and after monsoon season — or more frequently if surrounded by trees." },
-        { id: 3, question: "Do you handle emergency drain blockages?", answer: "Yes, same-day drainage services may be available for urgent blockages in New Delhi and nearby areas." },
-        { id: 4, question: "What areas do you serve?", answer: "We provide drainage and gutter cleaning across New Delhi, Noida, Gurugram, and select regions in India." },
+        { id: 3, question: "Do you handle emergency drain blockages?", answer: "Yes, same-day drainage services may be available for urgent blockages in Chennai and nearby areas." },
+        { id: 4, question: "What areas do you serve?", answer: "We provide drainage and gutter cleaning across Chennai, Bengaluru, Hyderabad, and select regions in India." },
         { id: 5, question: "How can I book drainage cleaning?", answer: "Book online or call RocketSingh to schedule drain or gutter cleaning at your property." },
       ]}
     />

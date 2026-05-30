@@ -1,13 +1,7 @@
 // app/layout.js
 import './globals.css';
 import Script from 'next/script';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Sidekick from '../components/Sidekick';
-import Navbar from '../components/Navbar';
-import RoadBlock from '../components/Roadblock';
-// import BrowserCompatibilityWarning from '../components/BrowserCompatibilityWarning';
-import CookieConsent from '../components/CookieConsent';
+import LayoutChrome from '../components/LayoutChrome';
 import { Suspense } from 'react';
 
 
@@ -96,16 +90,7 @@ export default function RootLayout({ children }:Readonly<{
           />
         </noscript>
         
-        <CookieConsent />
-        {/* <BrowserCompatibilityWarning /> */}
-        <RoadBlock />
-        <Navbar />
-        <Header />
-        <Sidekick />
-        <main>
-          <Suspense fallback={null}>{children}</Suspense>
-        </main>
-        <Footer />
+        <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
   );

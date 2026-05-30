@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Book a Cleaning Service | RocketSingh",
-  description: "Book professional cleaning services in New Delhi, India with RocketSingh.",
+  description: "Book professional cleaning services in Chennai, India with RocketSingh.",
   keywords: "cleaning services India, book cleaning, RocketSingh",
 };
 

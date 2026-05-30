@@ -55,7 +55,7 @@ const TermsofServices = () => {
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Understanding of Our Platform</h2>
             <p className="about leading-relaxed">
               Established on June 14, 2018, RocketSingh is a premier professional cleaning services provider 
-              based in New Delhi, India. We specialize in innovative IT solutions but do not endorse or guarantee 
+              based in Chennai, India. We specialize in innovative IT solutions but do not endorse or guarantee 
               the services provided by users.
             </p>
             <p className="about leading-relaxed">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ServiceCard from "../components/ServiceCard";
 
-const displayLocation = "New Delhi, India";
+const displayLocation = "Chennai, India";
 
 const slides = [
   {
@@ -30,7 +30,7 @@ const slides = [
 const sections = {
   about: {
     title: "About RocketSingh",
-    desc: "RocketSingh is a leading professional cleaning company in New Delhi, India. Any home, office, or commercial cleaning — whether deep cleaning, sanitization, carpet care, or post-construction cleanup — RocketSingh is there for you.",
+    desc: "RocketSingh is a leading professional cleaning company in Chennai, India. Any home, office, or commercial cleaning — whether deep cleaning, sanitization, carpet care, or post-construction cleanup — RocketSingh is there for you.",
   },
   mission: {
     title: "Our Mission",

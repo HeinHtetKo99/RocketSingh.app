@@ -23,7 +23,7 @@ const Message = () => {
 
             <p>
               Our teams have been dedicated to ensuring every home, office, and facility we serve receives exceptional attention and service. 
-              Each project contributes to our continuous growth and commitment to raising industry standards in New Delhi and across India.
+              Each project contributes to our continuous growth and commitment to raising industry standards in Chennai and across India.
             </p>
 
             <p>

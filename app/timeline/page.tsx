@@ -6,7 +6,7 @@ export default function Timeline() {
     {
       year: "2018",
       title: "Company Founded",
-      description: "RocketSingh was established in New Delhi with a mission to provide reliable and professional cleaning services for homes and businesses.",
+      description: "RocketSingh was established in Chennai with a mission to provide reliable and professional cleaning services for homes and businesses.",
     },
     {
       year: "2019",
@@ -21,7 +21,7 @@ export default function Timeline() {
     {
       year: "2021",
       title: "Commercial Projects",
-      description: "Successfully handled large-scale commercial cleaning projects for offices, apartments, and business complexes across New Delhi.",
+      description: "Successfully handled large-scale commercial cleaning projects for offices, apartments, and business complexes across Chennai.",
     },
     {
       year: "2022",
@@ -41,7 +41,7 @@ export default function Timeline() {
     {
       year: "2025",
       title: "Brand Strengthening",
-      description: "Strengthened brand presence across New Delhi through digital marketing, partnerships, and consistent service excellence.",
+      description: "Strengthened brand presence across Chennai through digital marketing, partnerships, and consistent service excellence.",
     },
     {
       year: "2026",

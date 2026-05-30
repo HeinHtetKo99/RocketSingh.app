@@ -18,7 +18,7 @@ export default function CorporateHouseCleaning() {
       scopeItems={[
         { title: "Daily Office Cleaning", description: "Desk sanitization, floor maintenance, restroom cleaning, and trash removal.", image: "/services/corporate-house-cleaning.jpg", imageAlt: "Office Cleaning" },
         { title: "Monthly Deep Cleaning", description: "Comprehensive deep cleaning of carpets, windows, ducts, and hard-to-reach areas.", image: "/services/monthly-cleaning.jpg", imageAlt: "Deep Cleaning" },
-        { title: "Custom Contracts", description: "Flexible packages for businesses of all sizes across New Delhi and India.", image: "/services/corporate-house-cleaning.jpg", imageAlt: "Custom Contracts" },
+        { title: "Custom Contracts", description: "Flexible packages for businesses of all sizes across Chennai and India.", image: "/services/corporate-house-cleaning.jpg", imageAlt: "Custom Contracts" },
       ]}
       faqs={[
         { id: 1, question: "What corporate cleaning plans are available?", answer: "We offer daily, weekly, bi-weekly, and monthly cleaning packages including deep cleaning add-ons for offices and commercial spaces." },

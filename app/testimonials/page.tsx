@@ -20,7 +20,7 @@ export default function Testimonials() {
       <div className="text-center mb-14">
         <h1 className="text-4xl font-extrabold text-teal-900 mb-4">What Our Clients Say</h1>
         <p className="text-gray-700 max-w-2xl mx-auto">
-          Trusted by homes, offices, hotels, and institutions across New Delhi and India.
+          Trusted by homes, offices, hotels, and institutions across Chennai and India.
         </p>
       </div>
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">

@@ -23,7 +23,7 @@ export default function FacadeCleaning() {
       faqs={[
         { id: 1, question: "What is facade cleaning?", answer: "Facade cleaning removes dirt, pollution, algae, and stains from building exteriors using pressure washing, chemical treatments, and manual cleaning methods." },
         { id: 2, question: "Is pressure washing safe for all surfaces?", answer: "Our technicians adjust pressure levels and methods based on surface type — brick, concrete, glass, or metal — to avoid damage." },
-        { id: 3, question: "How often should facades be cleaned?", answer: "We recommend annual facade cleaning for most buildings, or more frequently in high-pollution urban areas like New Delhi." },
+        { id: 3, question: "How often should facades be cleaned?", answer: "We recommend annual facade cleaning for most buildings, or more frequently in high-pollution urban areas like Chennai." },
         { id: 4, question: "Do you service commercial buildings?", answer: "Yes, we clean office towers, hotels, shopping centers, and residential complexes across India." },
         { id: 5, question: "How can I request a quote?", answer: "Contact RocketSingh with your building details for a customized facade cleaning quote." },
       ]}

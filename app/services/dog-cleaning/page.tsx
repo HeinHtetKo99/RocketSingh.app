@@ -91,7 +91,7 @@ const DogCleaning = () => {
       {/* Description Section */}
       <div className="mx-auto px-5 py-10 max-w-7xl text-center">
         <h2 className="text-3xl font-bold text-teal-900 mb-5">
-          Dog Cleaning Services in New Delhi
+          Dog Cleaning Services in Chennai
         </h2>
         <p className="text-gray-700 leading-relaxed mb-6">
           Our dog cleaning services in India cover bathing, brushing, nail trimming, ear cleaning, and full grooming. We use trained professionals, modern equipment, and pet-friendly products for a safe and hygienic grooming experience.

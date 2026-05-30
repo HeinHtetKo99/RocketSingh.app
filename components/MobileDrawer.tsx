@@ -87,6 +87,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, setIsOpen }) => {
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
     { to: '/services', label: 'Services' },
+    { to: '/d', label: 'Download App' },
     { to: '/feedback', label: 'Feedback' },
     { to: '/team', label: 'Team' },
     { to: '/contact', label: 'Contact' },

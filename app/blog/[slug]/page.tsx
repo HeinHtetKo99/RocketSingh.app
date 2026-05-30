@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="mt-12 bg-teal-50 border border-teal-200 rounded-2xl p-8 text-center">
           <h3 className="text-xl font-bold text-teal-900 mb-3">Need Professional Help?</h3>
           <p className="text-gray-600 mb-6">
-            Book a trusted RocketSingh professional for any cleaning service in New Delhi and across India.
+            Book a trusted RocketSingh professional for any cleaning service in Chennai and across India.
           </p>
           <Link
             href="/book"

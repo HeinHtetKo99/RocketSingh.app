@@ -12,7 +12,7 @@ const captionTemplates = [
   "Carpet steam cleaning restoring freshness and removing embedded allergens.",
   "Post-construction cleanup making newly renovated spaces move-in ready.",
   "Hotel and hospitality cleaning meeting international hygiene standards.",
-  "Hospital-grade disinfection for healthcare facilities across New Delhi.",
+  "Hospital-grade disinfection for healthcare facilities across Chennai.",
   "Garden and outdoor space cleaning keeping landscapes neat and beautiful.",
   "AC cleaning and servicing improving air quality and cooling efficiency.",
   "Sofa and upholstery deep cleaning with fabric-safe professional methods.",

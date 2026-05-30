@@ -146,7 +146,7 @@ export default function Contact() {
                 value={form.city}
                 onChange={handleChange}
                 className="border border-teal-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-teal-600 shadow-inner w-full"
-                placeholder="City (New Delhi, Noida, Mumbai...)"
+                placeholder="City (Chennai, Bengaluru, Mumbai...)"
               />
               <div>
                 <textarea
@@ -185,7 +185,7 @@ export default function Contact() {
           <div>
             <h2 className="text-4xl font-extrabold text-teal-900 mb-5">We Work Across India</h2>
             <p className="text-gray-700 text-lg leading-relaxed">
-              Our team serves New Delhi, Noida, Gurugram, and nearby regions with fast, reliable cleaning solutions for homes, offices, hotels, and commercial properties.
+              Our team serves Chennai, Bengaluru, Hyderabad, and nearby regions with fast, reliable cleaning solutions for homes, offices, hotels, and commercial properties.
             </p>
           </div>
           <div className="rounded-2xl overflow-hidden shadow-[0_0_30px_rgba(13,93,89,0.2)] border border-teal-400 h-[420px]">
@@ -197,7 +197,7 @@ export default function Contact() {
           <div className="group bg-white rounded-xl p-4 text-center border-2 border-teal-900 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
             <div className="flex justify-center mb-2"><VisitIcon /></div>
             <h3 className="text-lg font-semibold text-teal-900 mb-1">Visit Us</h3>
-            <p className="text-sm leading-relaxed">Rajpath, Connaught Place,<br />New Delhi, India</p>
+            <p className="text-sm leading-relaxed">Anna Salai, T. Nagar,<br />Chennai, India</p>
           </div>
           <a
             href="mailto:cleaningsewa@sriyog.com"

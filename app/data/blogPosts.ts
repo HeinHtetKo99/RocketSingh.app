@@ -31,7 +31,7 @@ export const blogPosts: BlogPost[] = [
       [
         { heading: "Why Professional Bathroom Cleaning Matters", body: "Regular bathroom cleaning prevents mold, mildew, and bacteria buildup that can affect your family's health. Our trained professionals use eco-friendly products safe for children and pets." },
         { heading: "What We Clean", body: "We deep clean tiles, sinks, toilets, showers, mirrors, faucets, and grout lines. Hard water stains and soap scum are removed using specialized techniques and equipment." },
-        { heading: "Book Your Service", body: "Schedule a bathroom cleaning service in New Delhi, Noida, or Mumbai through our website or mobile app. Same-day appointments may be available depending on availability." },
+        { heading: "Book Your Service", body: "Schedule a bathroom cleaning service in Chennai, Bengaluru, or Mumbai through our website or mobile app. Same-day appointments may be available depending on availability." },
       ]
     ),
   },
@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
     date: "January 12, 2026",
     readTime: "4 min read",
     content: postContent(
-      "A clean kitchen is essential for a healthy home. RocketSingh offers expert kitchen cleaning across New Delhi, Mumbai, and Noida, sanitizing surfaces and removing grease and stubborn stains.",
+      "A clean kitchen is essential for a healthy home. RocketSingh offers expert kitchen cleaning across Chennai, Mumbai, and Bengaluru, sanitizing surfaces and removing grease and stubborn stains.",
       [
         { heading: "Deep Kitchen Sanitization", body: "We clean countertops, cabinets, sinks, stovetops, ovens, and floors. Our professionals prevent food contamination and maintain a hygienic cooking environment." },
         { heading: "Eco-Friendly Products", body: "We use environmentally safe cleaning solutions that are effective against grease and bacteria without leaving harmful residues on food preparation surfaces." },
@@ -175,7 +175,7 @@ export const blogPosts: BlogPost[] = [
       [
         { heading: "Vent and Fan Cleaning", body: "Dust buildup in vents causes overheating and performance issues. Our technicians safely clean internal components without damaging hardware." },
         { heading: "Screen and Keyboard", body: "Professional screen and keyboard cleaning removes fingerprints, bacteria, and debris for a hygienic workspace." },
-        { heading: "Office Packages", body: "We offer bulk laptop cleaning for offices, schools, and co-working spaces across New Delhi and nearby regions." },
+        { heading: "Office Packages", body: "We offer bulk laptop cleaning for offices, schools, and co-working spaces across Chennai and nearby regions." },
       ]
     ),
   },
@@ -335,7 +335,7 @@ export const blogPosts: BlogPost[] = [
     content: postContent(
       "Post-event cleanup leaves your venue spotless and ready for the next use with trash removal, surface cleaning, and restroom sanitization.",
       [
-        { heading: "Wedding and Banquet Cleanup", body: "We handle large-scale post-event cleaning for wedding venues, banquet halls, and reception spaces across New Delhi." },
+        { heading: "Wedding and Banquet Cleanup", body: "We handle large-scale post-event cleaning for wedding venues, banquet halls, and reception spaces across Chennai." },
         { heading: "Corporate Events", body: "Conference and seminar cleanup includes seating areas, catering zones, and restroom facilities." },
         { heading: "Fast Turnaround", body: "Our teams work efficiently to restore venues overnight or within hours of event completion." },
       ]
@@ -409,7 +409,7 @@ export const blogPosts: BlogPost[] = [
       [
         { heading: "Drain Unclogging", body: "Professional equipment clears blockages in kitchen, bathroom, and main drainage lines efficiently." },
         { heading: "Septic Tank Maintenance", body: "Regular septic cleaning prevents overflows, odors, and contamination of surrounding soil and water." },
-        { heading: "Emergency Service", body: "Same-day drainage and septic services may be available for urgent situations in New Delhi and nearby areas." },
+        { heading: "Emergency Service", body: "Same-day drainage and septic services may be available for urgent situations in Chennai and nearby areas." },
       ]
     ),
   },

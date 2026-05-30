@@ -5,7 +5,7 @@ import BacktoTop from './BacktoTop';
 
 const Sidekick: React.FC = () => {
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-center gap-4 mb-12 sm:mb-0">
+    <div className="fixed bottom-[calc(4.5rem+10dvh+env(safe-area-inset-bottom))] right-4 z-50 flex flex-col items-center gap-4 md:bottom-4 md:mb-0">
       <BacktoTop />
 
       {/* Call */}

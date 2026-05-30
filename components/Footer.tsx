@@ -23,7 +23,7 @@ const Footer = () => {
       <footer className="relative footer pt-16 pb-24 md:pb-10 border-t z-10">
 
         {/* MOBILE FLOATING NAV */}
-        <div className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 rounded-3xl border border-teal-200/60 bg-white px-3 py-2 shadow-2xl shadow-black/10 md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-50 w-full rounded-t-3xl rounded-b-none border border-b-0 border-teal-200/60 bg-white px-3 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-2xl shadow-black/10 md:hidden">
           <div className="grid grid-cols-5 gap-1">
             {mobileNavItems.map(({ label, href, Icon, isActive }) => {
               const active = isActive(pathname);

@@ -23,9 +23,9 @@ export default function AcCleaning() {
       faqs={[
         { id: 1, question: "Why does AC maintenance matter?", answer: "Regular maintenance keeps energy bills low and extends your unit's life by 5–10 years while improving indoor air quality." },
         { id: 2, question: "How often should AC filters be cleaned?", answer: "During heavy use months, check filters every 2–4 weeks. A clean filter can reduce energy consumption by 5–15%." },
-        { id: 3, question: "Do you service split and central AC units?", answer: "Yes, we service residential and commercial split, window, and central AC systems across New Delhi and nearby regions." },
+        { id: 3, question: "Do you service split and central AC units?", answer: "Yes, we service residential and commercial split, window, and central AC systems across Chennai and nearby regions." },
         { id: 4, question: "What warning signs need immediate attention?", answer: "Strange noises, unusual smells, uneven cooling, or higher electricity bills indicate your AC needs professional servicing." },
-        { id: 5, question: "How can I book AC cleaning?", answer: "Book online through our website or contact RocketSingh for fast scheduling in New Delhi, Noida, and Mumbai." },
+        { id: 5, question: "How can I book AC cleaning?", answer: "Book online through our website or contact RocketSingh for fast scheduling in Chennai, Bengaluru, and Mumbai." },
       ]}
     />
   );

@@ -195,7 +195,7 @@ const PrivacyPolicy = () => {
               Email: privacy@cleaningsewa.com
             </p>
             <p className="about leading-relaxed">
-              Address: RocketSingh, New Delhi, India
+              Address: RocketSingh, Chennai, India
             </p>
           </div>
 

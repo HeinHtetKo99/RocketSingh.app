@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Career | RocketSingh",
-  description: "Join RocketSingh — career opportunities in professional cleaning services in New Delhi, India.",
-  keywords: "cleaning jobs India, RocketSingh career, New Delhi cleaning jobs",
+  description: "Join RocketSingh — career opportunities in professional cleaning services in Chennai, India.",
+  keywords: "cleaning jobs India, RocketSingh career, Chennai cleaning jobs",
 };
 
 export default function CareerPage() {
