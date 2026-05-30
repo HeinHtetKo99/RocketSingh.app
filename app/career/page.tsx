@@ -1,18 +1,12 @@
-'use client';
+export const metadata = {
+  title: "Career | RocketSingh",
+  description: "Join RocketSingh — career opportunities in professional cleaning services in Kathmandu, Nepal.",
+  keywords: "cleaning jobs Nepal, RocketSingh career, Kathmandu cleaning jobs",
+};
 
-import Head from "next/head";
-import React from "react";
-
-export default function App() {
+export default function CareerPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* SEO */}
-      <Head>
-        <meta name="keywords" content="gardening services Nepal, GardenSewa" />
-        <meta property="og:title" content="Book Gardening Service" />
-      </Head>
-
-      {/* Header */}
       <div className="px-4 py-4 text-center">
         <div className="text-sm flex items-center justify-center text-gray-500 mb-2">
           Home
@@ -26,9 +20,7 @@ export default function App() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-          <span className="font-semibold text-gray-800">
-            Career
-          </span>
+          <span className="font-semibold text-gray-800">Career</span>
         </div>
 
         <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
@@ -36,18 +28,14 @@ export default function App() {
         </h1>
       </div>
 
-      {/* Airtable */}
       <div className="w-full flex justify-center py-6">
         <div className="w-full max-w-4xl">
           <iframe
             src="https://airtable.com/embed/appleRo8p3WECYrSW/pagsQUmriTA6BL8PB/form"
             className="w-full"
-            style={{
-              height: "1500px",
-              border: "none",
-            }}
+            style={{ height: "1500px", border: "none" }}
             title="Cleaning Service Career Form"
-          ></iframe>
+          />
         </div>
       </div>
     </div>

@@ -60,7 +60,7 @@ export default function Vmgo() {
           <div className="p-8 md:p-16 card space-y-4 max-w-3xl rounded-xl">
             <h2 className="text-3xl font-bold text">Vision</h2>
             <p className=" text-md leading-relaxed mb-4">
-              Our vision at Cleaning Sewa is to create a future where every individual has access to opportunities that match their skills and aspirations.            </p>
+              Our vision at RocketSingh is to create a future where every individual has access to opportunities that match their skills and aspirations.            </p>
             <p className=" text-md leading-relaxed">
               We envision a world where people searching for any service can easily connect
               with skilled professionals rather than hiring hefty commission from any service
@@ -75,7 +75,7 @@ export default function Vmgo() {
           <div className="p-8 md:p-16 bg-teal-700 text-white space-y-4 max-w-3xl rounded-xl ">
             <h2 className="text-3xl font-bold ">Mission</h2>
             <p className="text-md leading-relaxed ">
-              At Cleaning Sewa, our mission is to revolutionize the way work is connected with workers. We strive to provide a seamless platform that empowers individuals and businesses to find the perfect match for their needs, fostering opportunities for growth, collaboration, and success.            </p>
+              At RocketSingh, our mission is to revolutionize the way work is connected with workers. We strive to provide a seamless platform that empowers individuals and businesses to find the perfect match for their needs, fostering opportunities for growth, collaboration, and success.            </p>
           </div>
           <div className="hidden md:flex items-center mb-6">
               <Image height={600} width={800} src="/vmgo/mission.webp" alt="" className="w-auto h-40 " />

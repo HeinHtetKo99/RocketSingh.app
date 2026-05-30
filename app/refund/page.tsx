@@ -13,7 +13,7 @@ export default function RefundPolicy() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12 space-y-6">
         <section className="footer p-6 rounded-xl shadow-md space-y-6">
           <p className="about leading-relaxed">
-            At <span className="font-medium">Cleaning Sewa</span>, we are committed to providing top-quality cleaning services in Kathmandu. This Refund Policy explains when refunds may be issued and how you can request them.
+            At <span className="font-medium">RocketSingh</span>, we are committed to providing top-quality cleaning services in Kathmandu. This Refund Policy explains when refunds may be issued and how you can request them.
           </p>
 
           <div>
@@ -52,7 +52,7 @@ export default function RefundPolicy() {
 
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Contact Us</h2>
-            <p className="about leading-relaxed mb-1">Email: cleaningsewa@sriyog.com</p>
+            <p className="about leading-relaxed mb-1">Email: rocketsingh@sriyog.com</p>
             <p className="about leading-relaxed mb-1">Phone: +977-98511 52774</p>
             <p className="about leading-relaxed">Address: Kamalpokhari, Kathmandu, Nepal</p>
           </div>

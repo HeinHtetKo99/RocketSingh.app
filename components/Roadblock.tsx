@@ -40,7 +40,7 @@ const RoadBlock = () => {
     img.onerror = () => {
       // fallback to default image
       const defaultImg = new Image();
-      defaultImg.src = "/roadblock/default.jpg";
+      defaultImg.src = "/roadblock/default/default.jpg";
       defaultImg.onload = () => {
         setImageLoaded(true);
         setShowRoadBlock(true);
@@ -111,8 +111,8 @@ const RoadBlock = () => {
                 onError={(e) => {
                   const originalSrc = e.currentTarget.src;
                   e.currentTarget.onerror = null;
-                  if (!originalSrc.includes("default.jpg")) {
-                    e.currentTarget.src = "/roadblock/default.jpg";
+                  if (!originalSrc.includes("default/default.jpg")) {
+                    e.currentTarget.src = "/roadblock/default/default.jpg";
                   } else {
                     handleImageError();
                   }

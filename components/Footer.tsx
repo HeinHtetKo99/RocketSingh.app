@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import BrandLogo from "./BrandLogo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -16,20 +17,15 @@ const Footer = () => {
           {/* LEFT SIDE */}
           <div className="w-full lg:w-[45%]">
             <div className="mb-6">
-              <Link
-                href="/"
+              <BrandLogo
+                imageClassName="h-12 w-12"
+                textClassName="brand-name text-2xl font-bold tracking-tight"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                <img
-                  src="/logo/cleaning-sewa-logo-wordmark.svg"
-                  alt="Cleaning Sewa Logo"
-                  className="w-[300px] h-auto"
-                />
-              </Link>
+              />
             </div>
 
             <p className="text-[15px] leading-relaxed mb-4">
-              Cleaning Sewa is a leading professional cleaning company in Kathmandu, Nepal, offering top-quality, reliable, and affordable cleaning services for homes, offices, and commercial spaces. 
+              RocketSingh is a leading professional cleaning company in Kathmandu, Nepal, offering top-quality, reliable, and affordable cleaning services for homes, offices, and commercial spaces. 
             </p>
 
             <p className="text-[15px] leading-relaxed">
@@ -149,7 +145,7 @@ const Footer = () => {
 
             <a href="mailto:cleaningsewa@sriyog.com" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
               <img src="/icons/email.svg" alt="email" className="h-6 w-6" />
-              <span className="text-sm">cleaningsewa@sriyog.com</span>
+              <span className="text-sm">rocketsingh@sriyog.com</span>
             </a>
 
             <a href="tel:+9779851152774" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
@@ -171,7 +167,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 lg:mt-12 flex flex-col lg:flex-row justify-center items-center lg:justify-between text-[13px] gap-3 text-center md:text-left font-semibold">
           <p className="flex flex-col md:flex-row gap-4 md:gap-1 items-center">
             <span>All Rights Reserved. © 2018-{currentYear}</span>
-            <span>Cleaning Sewa</span>
+            <span>RocketSingh</span>
             <span>Built With : <a href="https://broadpress.org" target="_blank" className="hover:border-b hover:border-black text-gray-500">BroadPress</a></span>
           </p>
 

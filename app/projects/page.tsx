@@ -56,7 +56,7 @@ export default function ProjectsPage() {
           Our Projects
         </h1>
         <p className="text-lg md:text-xl max-w-2xl mx-auto">
-          Cleaning Sewa’s portfolio of beautifully maintained gardens, resorts, hotels, schools, and corporate spaces across Nepal.
+          RocketSingh’s portfolio of beautifully maintained gardens, resorts, hotels, schools, and corporate spaces across Nepal.
         </p>
       </section>
 

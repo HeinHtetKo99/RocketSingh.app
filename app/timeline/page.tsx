@@ -6,7 +6,7 @@ export default function Timeline() {
     {
       year: "2018",
       title: "Company Founded",
-      description: "Cleaning Sewa was established in Kathmandu with a mission to provide reliable and professional cleaning services for homes and businesses.",
+      description: "RocketSingh was established in Kathmandu with a mission to provide reliable and professional cleaning services for homes and businesses.",
     },
     {
       year: "2019",

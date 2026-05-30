@@ -17,7 +17,7 @@ const Message = () => {
           {/* Message Paragraphs */}
           <section className="space-y-6 text-justify leading-relaxed mb-10">
             <p>
-              At Cleaning Sewa, our mission has always been to provide top-quality cleaning services with integrity, professionalism, and care. 
+              At RocketSingh, our mission has always been to provide top-quality cleaning services with integrity, professionalism, and care. 
               Since our establishment in 2018, we have focused on building strong teams, efficient processes, and adopting modern cleaning techniques to deliver excellent results for our clients.
             </p>
 
@@ -32,7 +32,7 @@ const Message = () => {
             </p>
 
             <p>
-              Through consistent effort and dedication, Cleaning Sewa has grown into a trusted partner for both residential and commercial clients, strengthening our reputation and long-term success in the cleaning industry.
+              Through consistent effort and dedication, RocketSingh has grown into a trusted partner for both residential and commercial clients, strengthening our reputation and long-term success in the cleaning industry.
             </p>
           </section>
 
@@ -42,7 +42,7 @@ const Message = () => {
             <div className="w-full md:w-3/5 space-y-6 text-justify leading-relaxed">
               <p>
                 Our commitment extends beyond cleaning; we strive to create environments that inspire comfort, health, and productivity. 
-                At Cleaning Sewa, every client and every space matters, and every team member contributes to our shared mission of excellence.
+                At RocketSingh, every client and every space matters, and every team member contributes to our shared mission of excellence.
               </p>
 
               <p>

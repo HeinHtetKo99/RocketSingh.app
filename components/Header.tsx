@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import BrandLogo from "./BrandLogo";
 import MobileDrawer from "./MobileDrawer";
 
 const Header = () => {
@@ -39,16 +39,7 @@ const Header = () => {
       <div className="relative max-w-7xl mx-auto flex items-center justify-between py-4 px-3 sm:px-6">
         {/* Logo */}
         <div className="flex items-center">
-          <Link href="/" className="block">
-            <Image
-              src="/logo/cleaning-sewa-logo-wordmark.svg"
-              alt="Cleaning Sewa Logo"
-              width={200}
-              height={60}
-              className="w-[290px] sm:w-[220px] h-auto"
-              priority
-            />
-          </Link>
+          <BrandLogo />
         </div>
 
         {/* Navigation */}

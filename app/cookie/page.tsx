@@ -11,8 +11,7 @@ const cookiePolicy = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12 space-y-6">
         <section className="footer p-6 rounded-xl shadow-md space-y-6">
           <p className="about leading-relaxed">
-            At <span className="font-medium">Cleaning Sewa .</span>, 
-            At Cleaning Sewa ., we value your privacy and are committed
+            At <span className="font-medium">RocketSingh</span>, we value your privacy and are committed
             to ensuring a transparent and secure browsing experience. This Cookie
             Policy explains how and why cookies are used on our website, what types
             of cookies we employ, and the choices you have to manage or disable them.
@@ -20,8 +19,8 @@ const cookiePolicy = () => {
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Introduction</h2>
             <p className="about leading-relaxed mb-2">
-             Cleaning Sewa uses cookies and similar tracking 
-             technologies on https://www.Cleaning Sewa.com to improve your experience and to 
+             RocketSingh uses cookies and similar tracking 
+             technologies on https://cleaningsewa.com to improve your experience and to 
              operate our services effectively. This Cookie Policy explains what cookies
              are, how we use them, the types of cookies we use, and how you can manage
              or disable them if you prefer.</p>
@@ -77,7 +76,7 @@ const cookiePolicy = () => {
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Contact Us</h2>
             <p className="about leading-relaxed mb-1">Email: support@cleaningsewa.com</p>
             <p className="about leading-relaxed mb-1">Phone: +977-XXXXXXXXXX</p>
-            <p className="about leading-relaxed">Address: [Cleaning Sewa Address], Kathmandu, Nepal</p>
+            <p className="about leading-relaxed">Address: [RocketSingh Address], Kathmandu, Nepal</p>
           </div>
         </section>
       </div>

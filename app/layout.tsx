@@ -4,7 +4,6 @@ import Script from 'next/script';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidekick from '../components/Sidekick';
-import BacktoTop from '../components/BacktoTop';
 import Navbar from '../components/Navbar';
 import RoadBlock from '../components/Roadblock';
 // import BrowserCompatibilityWarning from '../components/BrowserCompatibilityWarning';
@@ -13,13 +12,13 @@ import { Suspense } from 'react';
 
 
 export const metadata = {
-  title: "Cleaning Sewa | Professional cleaning Services in Kathmandu, Nepal",
-  description: "Welcome to Cleaning Sewa, your trusted partner in professional cleaning services in Kathmandu, Nepal.",
-  keywords: "Cleaning Sewa, Professional Cleaning, Kathmandu, Nepal",
-  authors: [{ name: "Cleaning Sewa" }],
+  title: "RocketSingh | Professional cleaning Services in Kathmandu, Nepal",
+  description: "Welcome to RocketSingh, your trusted partner in professional cleaning services in Kathmandu, Nepal.",
+  keywords: "RocketSingh, Professional Cleaning, Kathmandu, Nepal",
+  authors: [{ name: "RocketSingh" }],
   openGraph: {
-    title: "Cleaning Sewa | Professional Cleaning Services in Kathmandu, Nepal",
-    description: "Welcome to Cleaning Sewa, your trusted partner in professional cleaning services.",
+    title: "RocketSingh | Professional Cleaning Services in Kathmandu, Nepal",
+    description: "Welcome to RocketSingh, your trusted partner in professional cleaning services.",
     url: "https://cleaningsewa.com",
     images: [
       {
@@ -30,8 +29,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cleaning Sewa | Professional Cleaning Services in Kathmandu, Nepal",
-    description: "Welcome to Cleaning Sewa, your trusted partner in professional cleaning services.",
+    title: "RocketSingh | Professional Cleaning Services in Kathmandu, Nepal",
+    description: "Welcome to RocketSingh, your trusted partner in professional cleaning services.",
     images: ["https://cleaningsewa.com/og/default.jpg"],
   },
 };
@@ -42,7 +41,7 @@ export default function RootLayout({ children }:Readonly<{
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" type="image/png" href="/logo/rocketsingh-logo.png" />
         <link rel="manifest" href="/manifest.json" />
 
         {/* Google Tag Manager */}
@@ -69,22 +68,6 @@ export default function RootLayout({ children }:Readonly<{
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', 'YOUR_PIXEL_ID');
             fbq('track', 'PageView');
-          `}
-        </Script>
-
-        {/* OneSignal */}
-        <Script
-          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-          strategy="afterInteractive"
-        />
-        <Script id="onesignal-init" strategy="afterInteractive">
-          {`
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function(OneSignal) {
-              await OneSignal.init({
-                appId: "a01bfd1c-15f0-4e40-8fdd-8407ea54a00b",
-              });
-            });
           `}
         </Script>
       </head>
@@ -115,7 +98,6 @@ export default function RootLayout({ children }:Readonly<{
         <Navbar />
         <Header />
         <Sidekick />
-        <BacktoTop />
         <main>
           <Suspense fallback={null}>{children}</Suspense>
         </main>

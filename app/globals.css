@@ -64,3 +64,44 @@ body{
 .card2{
   background: var(--black);
 }
+
+.back-to-top-btn {
+  background: #888888;
+  border: 2px solid #ebebeb;
+}
+
+.dark .back-to-top-btn {
+  background: #4a4a4a;
+  border-color: var(--border);
+}
+
+.dark .back-to-top-btn img {
+  filter: brightness(1.15);
+}
+
+.fab-btn {
+  background: #ffffff;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.fab-btn:hover {
+  background: #f9fafb;
+}
+
+.dark .fab-btn {
+  background: var(--mainBackground);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.4);
+}
+
+.dark .fab-btn:hover {
+  background: #2a2a2a;
+}
+
+.brand-name {
+  color: #134e4a;
+}
+
+.dark .brand-name {
+  color: #5eead4;
+}

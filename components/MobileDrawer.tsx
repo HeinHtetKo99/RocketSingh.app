@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import BrandLogo from './BrandLogo';
 
 type MobileDrawerProps = {
   isOpen: boolean;
@@ -130,17 +131,11 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({ isOpen, setIsOpen }) => {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-6 overflow-y-auto h-full bg-white">
+        <div className="p-6 overflow-y-auto h-full" style={{ background: 'var(--background)', color: 'var(--text)' }}>
 
           {/* Header */}
           <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-300/20">
-            <Link href="/" onClick={closeDrawer}>
-              <img
-                src="/logo/cleaning-sewa-logo-wordmark.svg"
-                alt="Cleaning Sewa Logo"
-                className="w-58 h-auto"
-              />
-            </Link>
+            <BrandLogo onClick={closeDrawer} />
 
             <button
               onClick={closeDrawer}
