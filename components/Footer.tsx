@@ -1,187 +1,201 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import BrandLogo from "./BrandLogo";
+import { usePathname } from "next/navigation";
+import {
+  Home,
+  Wrench,
+  BookOpen,
+  CircleHelp,
+  Handshake,
+} from "lucide-react";
+
+const logo = "/logo/rocketsingh-logo.png";
+
+const mobileNavItems = [
+  { label: "Home", href: "/", Icon: Home },
+  { label: "Services", href: "/services", Icon: Wrench },
+  { label: "Book", href: "/book", Icon: BookOpen },
+  { label: "FAQ", href: "/faq", Icon: CircleHelp },
+  { label: "Partner", href: "/partnership", Icon: Handshake },
+];
+
+const browseMoreLinks = [
+  { name: "Vision & Mission", href: "/vmgo" },
+  { name: "Testimonials", href: "/testimonials" },
+  { name: "Team", href: "/team" },
+  { name: "Blog", href: "/blog" },
+  { name: "Privacy Policy", href: "/privacy" },
+  { name: "Terms of Service", href: "/tos" },
+  { name: "Disclaimer", href: "/disclaimer" },
+];
+
+const serviceLinks = [
+  { name: "Home Cleaning", href: "/services/home-cleaning" },
+  { name: "Kitchen Cleaning", href: "/services/kitchen-cleaning" },
+  { name: "Bathroom Cleaning", href: "/services/bathroom-cleaning" },
+  { name: "Carpet Cleaning", href: "/services/carpet-cleaning" },
+  { name: "AC Cleaning", href: "/services/ac-cleaning" },
+  { name: "Disinfection / Sanitization", href: "/services/disinfection-sanitization-services" },
+  { name: "Corporate House Cleaning", href: "/services/corporate-house-cleaning" },
+  { name: "Move-In / Move-Out Cleaning", href: "/services/move-in-move-out-cleaning" },
+];
+
+const socialLinks = [
+  { icon: "/icons/x.svg", href: "#", label: "X" },
+  { icon: "/icons/biratinfo.svg", href: "https://biratinfo.com/author/cleaningsewa", label: "BiratInfo" },
+  { icon: "/icons/youtube.svg", href: "#", label: "YouTube" },
+  { icon: "/icons/trello.svg", href: "#", label: "Trello" },
+  { icon: "/icons/discord.svg", href: "#", label: "Discord" },
+];
 
 const Footer = () => {
+  const pathname = usePathname();
+  const newsletterRef = useRef<HTMLDivElement>(null);
   const currentYear = new Date().getFullYear();
 
+  useEffect(() => {
+    const container = newsletterRef.current;
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/ghost/signup-form@~0.3/umd/signup-form.min.js";
+    script.dataset.buttonColor = "#064706";
+    script.dataset.buttonTextColor = "#FFFFFF";
+    script.dataset.site = "https://biratinfo.com/";
+    script.dataset.locale = "en";
+    script.async = true;
+    container.appendChild(script);
+
+    return () => {
+      container.innerHTML = "";
+    };
+  }, []);
+
   return (
-    <>
+    <footer className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-green-900 text-gray-200 pt-16 pb-24 md:pb-12">
+      {/* MOBILE FLOATING NAV */}
+      <div className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 rounded-3xl border border-emerald-200/60 bg-white px-3 py-2 shadow-2xl shadow-black/10 md:hidden">
+        <div className="grid grid-cols-5 gap-1">
+          {mobileNavItems.map(({ label, href, Icon }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={label}
+                href={href}
+                className={`flex flex-col items-center justify-center rounded-2xl px-2 py-2 text-center text-[10px] font-medium transition ${
+                  isActive
+                    ? "bg-emerald-100 text-emerald-900 shadow-sm"
+                    : "text-emerald-700 hover:bg-emerald-50 hover:text-emerald-900"
+                }`}
+              >
+                <Icon size={20} className="mb-1 text-emerald-600" />
+                <span>{label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
 
-      <footer className="relative footer pt-16 pb-10 border-t z-10">
-
-        {/* TOP SECTION */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:justify-between gap-10">
-
-          {/* LEFT SIDE */}
-          <div className="w-full lg:w-[45%]">
-            <div className="mb-6">
-              <BrandLogo
-                imageClassName="h-12 w-12"
-                textClassName="brand-name text-2xl font-bold tracking-tight"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              />
+      {/* MAIN GRID */}
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1fr] md:grid-cols-2 grid-cols-1 gap-10">
+        {/* LEFT COLUMN */}
+        <div className="flex flex-col justify-between">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-white p-2 rounded-md shadow-sm">
+              <img src={logo} alt="RocketSingh Logo" className="h-12 w-auto" />
             </div>
+          </div>
 
-            <p className="text-[15px] leading-relaxed mb-4">
-              RocketSingh is the Indian version of TACKLES PRO — a growing platform built with a vision to deliver fast, reliable, and professional on-demand services across India.
+          <div className="text-[15px] leading-relaxed text-gray-300 max-w-lg space-y-4 mb-6">
+            <p>
+              RocketSingh is the Indian version of TACKLES PRO — a growing platform built with a vision
+              to deliver fast, reliable, and professional on-demand cleaning services across India.
             </p>
-            <p className="text-[15px] leading-relaxed mb-4">
-              Powered by a pool of dedicated, skilled, and trained professionals, RocketSingh is committed to providing SuperFast Services 24 hours 365 days a year. From emergency support to daily maintenance solutions, our mission is to connect customers with trusted experts anytime, anywhere.
-            </p>
-            <p className="text-[15px] leading-relaxed">
-              With a strong focus on speed, professionalism, customer satisfaction, and digital convenience, RocketSingh aims to redefine modern service delivery by bringing technology-driven workforce solutions to homes, offices, and businesses throughout India.
+            <p>
+              Powered by skilled and trained professionals, RocketSingh provides SuperFast Services 24 hours
+              a day, 365 days a year. From emergency support to daily maintenance, we connect customers
+              with trusted experts anytime, anywhere.
             </p>
           </div>
 
-          {/* RIGHT COLUMNS */}
-          <div className="w-full lg:w-[50%] grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-8 pt-6">
-            {/* Browse More */}
-            <div>
-              <h3 className="font-semibold mb-3 text-[16px]">Browse More</h3>
-              <ul className="space-y-2 text-[15px] leading-[1.6] pl-0">
-                <li className="py-1 cursor-pointer">
-                  <Link href="/vmgo" className="hover:text-green-700">Vision & Mission</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/history" className="hover:text-green-700">History</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/why" className="hover:text-green-700">Why Us</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/timeline" className="hover:text-green-700">Timeline</Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Resources */}
-            <div>
-              <h3 className="font-semibold mb-3 text-[16px]">Resources</h3>
-              <ul className="space-y-2 text-[15px] leading-[1.6] pl-0">
-                <li className="py-1 cursor-pointer">
-                  <Link href="/gallery" className="hover:text-green-700">Gallery</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/qr" className="hover:text-green-700">QR</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/glossary" className="hover:text-green-700">Glossary</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/message" className="hover:text-green-700">Message</Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Links */}
-            <div>
-              <h3 className="font-semibold mb-3 text-[16px]">Links</h3>
-              <ul className="space-y-2 text-[15px] leading-[1.6] pl-0">
-                <li className="py-1 cursor-pointer">
-                  <Link href="/calendar" className="hover:text-green-700">Calendar</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/faq" className="hover:text-green-700">FAQ</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/testimonials" className="hover:text-green-700">Testimonials</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/video" className="hover:text-green-700">Video</Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Explore */}
-            <div>
-              <h3 className="font-semibold mb-3 text-[16px]">Explore</h3>
-              <ul className="space-y-2 text-[15px] leading-[1.6] pl-0">
-                <li className="py-1 cursor-pointer">
-                  <Link href="/refund" className="hover:text-green-700">Refund Policy</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/partnership" className="hover:text-green-700">Partnership</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/blog" className="hover:text-green-700">Blog</Link>
-                </li>
-                <li className="py-1 cursor-pointer">
-                  <Link href="/team" className="hover:text-green-700">Team</Link>
-                </li>
-              </ul>
-            </div>
+          <div className="flex items-center gap-4 flex-wrap">
+            {socialLinks.map(({ icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="bg-white/10 p-2.5 rounded-full hover:bg-white/20 shadow-sm transition-all duration-300 hover:scale-110"
+              >
+                <img src={icon} alt={label} className="h-[18px] w-[18px]" />
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* SOCIAL + CONTACT SECTION */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:justify-between gap-8 mt-10">
-
-          {/* SOCIAL ICONS */}
-          <div className="flex gap-6 justify-center">
-            <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/x.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
-            </a>
-            <a href="https://biratinfo.com/author/cleaningsewa" target="_blank" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/biratinfo.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
-            </a>
-            <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/youtube.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
-            </a>
-            <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/trello.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
-            </a>
-            <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/discord.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
-            </a>
-            <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/viber.svg`} className="h-[22px] w-[22px] sm:h-[26px] sm:w-[26px] cursor-pointer" />
-            </a>
+        {/* RIGHT GRID */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-10">
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Browse More</h4>
+            <ul className="space-y-2">
+              {browseMoreLinks.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="block text-sm px-2 py-1 rounded-md text-gray-300 hover:bg-white/10 hover:text-white transition"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* CONTACT BOXES */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-
-            <a href="mailto:cleaningsewa@sriyog.com" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
-              <img src="/icons/email.svg" alt="email" className="h-6 w-6" />
-              <span className="text-sm">rocketsingh@sriyog.com</span>
-            </a>
-
-            <a href="tel:+919851152774" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
-              <img src="/icons/phone.svg" alt="phone" className="h-6 w-6" />
-              <span className="text-sm">+91-98511 52774</span>
-            </a>
-
-            <a href="https://wa.me/919851152774" target="_blank" className="flex items-center gap-2 border-2 rounded-lg px-6 py-3 w-full sm:w-auto">
-              <img src="/icons/whatsapp.svg" alt="whatsapp" className="h-6 w-6" />
-              <span className="text-sm">+91 98511 52774</span>
-            </a>
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Services</h4>
+            <ul className="space-y-2">
+              {serviceLinks.map((service) => (
+                <li key={service.name}>
+                  <Link
+                    href={service.href}
+                    className="block text-sm px-2 py-1 rounded-md text-gray-300 hover:bg-white/10 hover:text-white transition cursor-pointer"
+                  >
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <div ref={newsletterRef} className="col-span-2 mt-4 w-full" />
         </div>
+      </div>
 
-        {/* HORIZONTAL LINE */}
-        <div className="w-full border-t mt-14 mb-6"></div>
+      <div className="border-t border-emerald-800 mt-12 mb-6 mx-6 opacity-60" />
 
-        {/* FOOTER BOTTOM */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 lg:mt-12 flex flex-col lg:flex-row justify-center items-center lg:justify-between text-[13px] gap-3 text-center md:text-left font-semibold">
-          <p className="flex flex-col md:flex-row gap-4 md:gap-1 items-center">
-            <span>All Rights Reserved. © 2018-{currentYear}</span>
-            <span>RocketSingh</span>
-            <span>Built With : <a href="https://broadpress.org" target="_blank" className="hover:border-b hover:border-black text-gray-500">BroadPress</a></span>
-          </p>
+      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400 text-center sm:text-left">
+        <p className="leading-relaxed">
+          © 2018 - {currentYear} RocketSingh. All Rights Reserved.
+        </p>
 
-          <div className="flex gap-4 justify-center md:justify-end font-semibold mt-2 lg:mt-0">
-            <Link href="/privacy" className="cursor-pointer">Privacy Policy</Link>
-            <span>|</span>
-            <Link href="/disclaimer" className="cursor-pointer">Disclaimer</Link>
-            <span>|</span>
-            <Link href="/tos" className="cursor-pointer">Terms of Service</Link>
-          </div>
-        </div>
-
-      </footer>
-    </>
+        <p className="mt-2 sm:mt-0 leading-relaxed">
+          Built with :{" "}
+          <a
+            href="https://broadpress.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white font-semibold tracking-wide hover:underline"
+          >
+            BroadPress
+          </a>
+        </p>
+      </div>
+    </footer>
   );
 };
 
