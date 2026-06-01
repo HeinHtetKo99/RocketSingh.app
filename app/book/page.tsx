@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BookFormEmbed from "../../components/BookFormEmbed";
+import BookForm from "../../components/BookForm";
 
 export const metadata = {
   title: "Book a RocketSingh in Chennai | RocketSingh",
@@ -34,8 +34,8 @@ export default function BookPage() {
       </div>
 
       <div className="w-full max-md:px-0 md:px-3 sm:px-6 max-md:py-0 md:py-6">
-        <div className="w-full max-w-full md:max-w-3xl lg:max-w-4xl mx-auto rounded-none md:rounded-lg overflow-hidden md:shadow-md bg-[#F8F9FB]">
-          <BookFormEmbed />
+        <div className="w-full max-w-full md:max-w-4xl lg:max-w-5xl mx-auto rounded-none md:rounded-xl overflow-hidden md:shadow-md bg-[#F8F9FB]">
+          <BookForm />
         </div>
       </div>
     </div>

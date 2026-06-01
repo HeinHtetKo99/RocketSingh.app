@@ -105,3 +105,29 @@ body{
 .dark .brand-name {
   color: #5eead4;
 }
+
+/* Airtable-style booking form — two columns on desktop */
+.rs-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .rs-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 1.25rem;
+  }
+
+  .rs-form-grid > .rs-form-full {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rs-form-grid {
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+  }
+}
