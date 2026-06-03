@@ -1,5 +1,3 @@
-import { put } from "@vercel/blob";
-
 const TTL_MS = 10 * 60 * 1000;
 const MAX_BYTES = 5 * 1024 * 1024;
 
@@ -10,7 +8,16 @@ type StagedFile = {
   expiresAt: number;
 };
 
-const cache = new Map<string, StagedFile>();
+/** Shared across warm serverless invocations (same pattern as nepalmotor in-memory staging). */
+const cache: Map<string, StagedFile> = (() => {
+  const g = globalThis as typeof globalThis & {
+    __rocketSinghAttachmentCache?: Map<string, StagedFile>;
+  };
+  if (!g.__rocketSinghAttachmentCache) {
+    g.__rocketSinghAttachmentCache = new Map();
+  }
+  return g.__rocketSinghAttachmentCache;
+})();
 
 function pruneExpired() {
   const now = Date.now();
@@ -23,7 +30,7 @@ function releaseStagedFile(id: string) {
   cache.delete(id);
 }
 
-function scheduleRelease(id: string, delayMs = 300_000) {
+function scheduleRelease(id: string, delayMs = 120_000) {
   setTimeout(() => releaseStagedFile(id), delayMs);
 }
 
@@ -63,7 +70,6 @@ function mimeTypeForFile(file: File): string {
     gif: "image/gif",
     webp: "image/webp",
     heic: "image/heic",
-    heif: "image/heif",
     pdf: "application/pdf",
   };
   return map[ext ?? ""] ?? "application/octet-stream";
@@ -77,29 +83,11 @@ function assertFileSize(file: File): void {
   }
 }
 
-function sanitizeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9._-]+/g, "_").slice(0, 120) || "upload";
-}
-
-/** Vercel Blob (persistent public URL) — required for serverless photo uploads. */
-export function hasVercelBlobStorage(): boolean {
-  return Boolean(process.env["BLOB_READ_WRITE_TOKEN"]?.trim());
-}
-
-async function publishViaVercelBlob(file: File): Promise<string> {
-  const bytes = Buffer.from(await file.arrayBuffer());
-  const pathname = `bookings/${Date.now()}-${crypto.randomUUID()}-${sanitizeFilename(file.name)}`;
-  const blob = await put(pathname, bytes, {
-    access: "public",
-    contentType: mimeTypeForFile(file),
-    addRandomSuffix: false,
-  });
-  return blob.url;
-}
-
 function getPublicOrigin(request: Request): string {
   const fromEnv = process.env["NEXT_PUBLIC_SITE_URL"]?.replace(/\/$/, "");
   if (fromEnv) return fromEnv;
+  const vercelUrl = process.env["VERCEL_URL"];
+  if (vercelUrl) return `https://${vercelUrl}`;
 
   const host =
     request.headers.get("x-forwarded-host") ?? request.headers.get("host");
@@ -107,10 +95,6 @@ function getPublicOrigin(request: Request): string {
   if (host && !host.includes("localhost") && !host.startsWith("127.0.0.1")) {
     return `${proto}://${host}`;
   }
-
-  const vercelUrl = process.env["VERCEL_URL"];
-  if (vercelUrl) return `https://${vercelUrl}`;
-
   return new URL(request.url).origin;
 }
 
@@ -124,35 +108,22 @@ function isPublicOrigin(origin: string): boolean {
 }
 
 function canSelfHostAttachments(request: Request): boolean {
-  if (hasVercelBlobStorage()) return true;
   if (process.env["VERCEL_URL"]) return true;
+
+  const host = new URL(request.url).hostname;
+  if (host === "localhost" || host === "127.0.0.1") return true;
+
   if (isPublicOrigin(new URL(request.url).origin)) return true;
 
   const configuredOrigin = process.env["NEXT_PUBLIC_SITE_URL"]?.replace(
     /\/$/,
     "",
   );
-  if (!configuredOrigin || !isPublicOrigin(configuredOrigin)) return false;
+  if (configuredOrigin && isPublicOrigin(configuredOrigin)) return true;
 
-  const host = new URL(request.url).hostname;
-  return host === "localhost" || host === "127.0.0.1";
+  return false;
 }
 
-async function publishViaMemoryRoute(
-  file: File,
-  request: Request,
-): Promise<string> {
-  const origin = getPublicOrigin(request);
-  const bytes = Buffer.from(await file.arrayBuffer());
-  const id = stageFile(bytes, mimeTypeForFile(file), file.name);
-  scheduleRelease(id);
-  return `${origin}/api/attachments/${id}`;
-}
-
-/**
- * Returns HTTPS URLs Airtable can fetch for the "Add photos/ picture" attachment field.
- * Prefers Vercel Blob on production (in-memory staging breaks across serverless instances).
- */
 export async function publishFilesForAirtable(
   files: File[],
   request: Request,
@@ -161,37 +132,19 @@ export async function publishFilesForAirtable(
     throw new Error(
       "Photo uploads on localhost need a public URL. Run `npx ngrok http 3000`, " +
         "add NEXT_PUBLIC_SITE_URL=<that-url> to .env.local, restart `npm run dev`, " +
-        "then submit again. On Vercel, connect a Blob store so BLOB_READ_WRITE_TOKEN is set.",
+        "then submit again. On the live site this works automatically.",
     );
   }
 
-  if (process.env["VERCEL"] === "1" && !hasVercelBlobStorage()) {
-    throw new Error(
-      "Photo uploads require Vercel Blob on production. " +
-        "In the Vercel dashboard → Storage → create a Blob store and link it to this project, then redeploy.",
-    );
-  }
-
+  const origin = getPublicOrigin(request);
   const urls: string[] = [];
 
   for (const file of files) {
     assertFileSize(file);
-
-    if (hasVercelBlobStorage()) {
-      try {
-        urls.push(await publishViaVercelBlob(file));
-        continue;
-      } catch (blobErr) {
-        const msg =
-          blobErr instanceof Error ? blobErr.message : String(blobErr);
-        throw new Error(
-          `Could not upload ${file.name} to storage (${msg}). ` +
-            "In Vercel → Storage, connect a Blob store to this project and redeploy.",
-        );
-      }
-    }
-
-    urls.push(await publishViaMemoryRoute(file, request));
+    const bytes = Buffer.from(await file.arrayBuffer());
+    const id = stageFile(bytes, mimeTypeForFile(file), file.name);
+    scheduleRelease(id);
+    urls.push(`${origin}/api/attachments/${id}`);
   }
 
   return urls;

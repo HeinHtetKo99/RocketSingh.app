@@ -328,23 +328,10 @@ export async function setAttachmentUrls(
     },
   );
 
-  const data = (await res.json()) as {
-    fields?: Record<string, Array<{ id?: string; url?: string }> | undefined>;
-    error?: { message: string };
-  };
+  const data = (await res.json()) as { error?: { message: string } };
   if (!res.ok) {
     throw new Error(
       data.error?.message ?? `Attachment update failed (${res.status})`,
     );
-  }
-
-  if (urls.length > 0) {
-    const stored = data.fields?.[fieldName];
-    if (!Array.isArray(stored) || stored.length === 0) {
-      throw new Error(
-        `Airtable did not store attachments on "${fieldName}". ` +
-          "Ensure the URL is publicly reachable (use Vercel Blob on production).",
-      );
-    }
   }
 }

@@ -1,8 +1,5 @@
 import { getStagedFile } from "@/lib/attachment-staging";
 
-export const dynamic = "force-dynamic";
-export const runtime = "nodejs";
-
 export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },

@@ -6,7 +6,6 @@ import {
   resolveBookingPhotoField,
   resolveServiceRecordIds,
   setAttachmentUrls,
-  uploadAttachmentToField,
 } from "@/lib/airtable";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
 import { publishFilesForAirtable } from "@/lib/attachment-staging";
@@ -273,54 +272,38 @@ async function uploadPhotos(
   tablePath: string,
   photos: File[],
 ): Promise<string[]> {
-  const photoField = await resolveBookingPhotoField(tablePath);
-  const fieldId = photoField?.id;
+  await resolveBookingPhotoField(tablePath);
   const failures: string[] = [];
 
   for (const file of photos) {
-    const fieldRef = fieldId ?? BOOKING_PHOTO_FIELD;
-
     try {
-      await uploadAttachmentToField(recordId, fieldRef, file);
-      continue;
-    } catch (directErr) {
-      if (fieldId && fieldRef === fieldId) {
-        try {
-          await uploadAttachmentToField(recordId, BOOKING_PHOTO_FIELD, file);
-          continue;
-        } catch {
-          /* URL fallback below (same as nepalmotor.com) */
-        }
+      const [url] = await publishFilesForAirtable([file], request);
+      const probe = await fetch(url, { method: "GET" });
+      if (!probe.ok) {
+        throw new Error(
+          `Staged photo URL returned ${probe.status}. Redeploy or set NEXT_PUBLIC_SITE_URL to your public site URL.`,
+        );
       }
-
+      let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
       try {
-        const [url] = await publishFilesForAirtable([file], request);
-        let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
-        try {
-          existing = await getRecordAttachments(
-            recordId,
-            BOOKING_PHOTO_FIELD,
-            tablePath,
-          );
-        } catch {
-          /* still try URL-only upload */
-        }
-        await setAttachmentUrls(
+        existing = await getRecordAttachments(
           recordId,
           BOOKING_PHOTO_FIELD,
-          [url],
-          existing,
           tablePath,
         );
-      } catch (fallbackErr) {
-        const directMsg =
-          directErr instanceof Error ? directErr.message : "Upload failed";
-        const fallbackMsg =
-          fallbackErr instanceof Error
-            ? fallbackErr.message
-            : "Upload failed";
-        failures.push(`${file.name}: ${directMsg}; ${fallbackMsg}`);
+      } catch {
+        /* still try URL-only upload */
       }
+      await setAttachmentUrls(
+        recordId,
+        BOOKING_PHOTO_FIELD,
+        [url],
+        existing,
+        tablePath,
+      );
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Upload failed";
+      failures.push(`${file.name}: ${msg}`);
     }
   }
 

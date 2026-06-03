@@ -5,7 +5,6 @@ import {
   listAirtableTableSummaries,
   resolveServiceRecordIds,
   setAttachmentUrls,
-  uploadAttachmentToField,
 } from "@/lib/airtable";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
 import { publishFilesForAirtable } from "@/lib/attachment-staging";
@@ -208,26 +207,18 @@ async function uploadFile(
   if (!file?.size) return null;
 
   try {
-    await uploadAttachmentToField(recordId, field, file);
-    return null;
-  } catch (directErr) {
+    const [url] = await publishFilesForAirtable([file], request);
+    let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
     try {
-      const [url] = await publishFilesForAirtable([file], request);
-      let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
-      try {
-        existing = await getRecordAttachments(recordId, field, tablePath);
-      } catch {
-        /* still try URL-only upload */
-      }
-      await setAttachmentUrls(recordId, field, [url], existing, tablePath);
-      return null;
-    } catch (fallbackErr) {
-      const directMsg =
-        directErr instanceof Error ? directErr.message : "Upload failed";
-      const fallbackMsg =
-        fallbackErr instanceof Error ? fallbackErr.message : "Upload failed";
-      return `${file.name}: ${directMsg}; ${fallbackMsg}`;
+      existing = await getRecordAttachments(recordId, field, tablePath);
+    } catch {
+      /* still try URL-only upload */
     }
+    await setAttachmentUrls(recordId, field, [url], existing, tablePath);
+    return null;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Upload failed";
+    return `${file.name}: ${msg}`;
   }
 }
 
