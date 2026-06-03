@@ -1,11 +1,15 @@
 import { NextResponse } from "next/server";
 import {
   createRecordInTable,
+  getRecordAttachments,
   listAirtableTableSummaries,
+  resolveBookingPhotoField,
   resolveServiceRecordIds,
+  setAttachmentUrls,
   uploadAttachmentToField,
 } from "@/lib/airtable";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
+import { publishFilesForAirtable } from "@/lib/attachment-staging";
 import { emailValidationError } from "@/lib/form-validation";
 
 /**
@@ -253,18 +257,64 @@ async function createBookingRecord(
   };
 }
 
+function readBookingsTablePath(
+  configuredName: string,
+  tables: { id: string; name: string }[],
+): string {
+  const tableId = readBookingsTableIdFallback();
+  if (tableId) return tableId;
+  const resolved = resolveTableIdByName(tables, configuredName);
+  if (resolved) return resolved.id;
+  return configuredName;
+}
+
 async function uploadPhotos(
+  request: Request,
   recordId: string,
+  tablePath: string,
   photos: File[],
 ): Promise<string[]> {
+  const photoField =
+    (await resolveBookingPhotoField(tablePath)) ?? {
+      id: "",
+      name: PHOTO_FIELD,
+    };
+  const fieldName = photoField.name;
   const failures: string[] = [];
+
   for (const file of photos) {
+    let uploaded = false;
+
+    for (const fieldRef of [photoField.id, fieldName].filter(Boolean)) {
+      try {
+        await uploadAttachmentToField(recordId, fieldRef, file);
+        uploaded = true;
+        break;
+      } catch {
+        /* direct base64 upload often 404 — try URL fallback */
+      }
+    }
+    if (uploaded) continue;
+
     try {
-      await uploadAttachmentToField(recordId, PHOTO_FIELD, file);
-    } catch {
-      failures.push(file.name);
+      const [url] = await publishFilesForAirtable([file], request);
+      let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
+      try {
+        existing = await getRecordAttachments(recordId, fieldName, tablePath);
+      } catch {
+        /* still try URL-only upload */
+      }
+      await setAttachmentUrls(recordId, fieldName, [url], existing, tablePath);
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : "";
+      failures.push(
+        detail && /localhost|ngrok|public url/i.test(detail)
+          ? `${file.name}: ${detail}`
+          : file.name,
+      );
     }
   }
+
   return failures;
 }
 
@@ -385,7 +435,19 @@ export async function handleBookingSubmission(
 
   const warnings = [...fieldWarnings];
   if (payload.photos.length > 0) {
-    const failures = await uploadPhotos(result.id, payload.photos);
+    let tables: { id: string; name: string }[] = [];
+    try {
+      tables = await listAirtableTableSummaries();
+    } catch {
+      /* use configured name / table id fallback */
+    }
+    const tablePath = readBookingsTablePath(configuredName, tables);
+    const failures = await uploadPhotos(
+      request,
+      result.id,
+      tablePath,
+      payload.photos,
+    );
     if (failures.length > 0) {
       warnings.push(
         `Booking saved, but these photos could not be uploaded: ${failures.join(", ")}.`,

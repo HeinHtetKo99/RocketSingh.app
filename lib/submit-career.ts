@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import {
   createRecordInTable,
+  getRecordAttachments,
   listAirtableTableSummaries,
   resolveServiceRecordIds,
+  setAttachmentUrls,
   uploadAttachmentToField,
 } from "@/lib/airtable";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
+import { publishFilesForAirtable } from "@/lib/attachment-staging";
 import { yearsLabelToNumber } from "@/lib/career-form-options";
 import { emailValidationError } from "@/lib/form-validation";
 
@@ -196,13 +199,30 @@ async function buildAirtableFields(
 }
 
 async function uploadFile(
+  request: Request,
   recordId: string,
+  tablePath: string,
   field: string,
   file: File | null,
 ): Promise<string | null> {
   if (!file?.size) return null;
+
   try {
     await uploadAttachmentToField(recordId, field, file);
+    return null;
+  } catch {
+    /* fall through to public URL upload */
+  }
+
+  try {
+    const [url] = await publishFilesForAirtable([file], request);
+    let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
+    try {
+      existing = await getRecordAttachments(recordId, field, tablePath);
+    } catch {
+      /* still try URL-only upload */
+    }
+    await setAttachmentUrls(recordId, field, [url], existing, tablePath);
     return null;
   } catch {
     return file.name;
@@ -285,9 +305,22 @@ export async function handleCareerSubmission(
   }
 
   const warnings = [...fieldWarnings];
-  const idFail = await uploadFile(result.id, ID_PROOF_FIELD, payload.idProof);
+  const tablePath = readCareerTableIdFallback() ?? configuredName;
+  const idFail = await uploadFile(
+    request,
+    result.id,
+    tablePath,
+    ID_PROOF_FIELD,
+    payload.idProof,
+  );
   if (idFail) warnings.push(`ID proof could not be uploaded: ${idFail}.`);
-  const resumeFail = await uploadFile(result.id, RESUME_FIELD, payload.resume);
+  const resumeFail = await uploadFile(
+    request,
+    result.id,
+    tablePath,
+    RESUME_FIELD,
+    payload.resume,
+  );
   if (resumeFail) warnings.push(`Resume could not be uploaded: ${resumeFail}.`);
 
   return NextResponse.json({

@@ -2,7 +2,12 @@ import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
 
 const AIRTABLE_API = "https://api.airtable.com/v0";
 
-type AirtableTableMeta = { id: string; name: string };
+type AirtableFieldMeta = { id: string; name: string; type: string };
+type AirtableTableMeta = {
+  id: string;
+  name: string;
+  fields?: AirtableFieldMeta[];
+};
 
 function requireAirtableConfig() {
   const env = getAirtableEnv();
@@ -48,6 +53,46 @@ async function fetchTablesMeta(): Promise<AirtableTableMeta[]> {
   }
 
   return data.tables ?? [];
+}
+
+async function fetchTablesMetaFull(): Promise<AirtableTableMeta[]> {
+  return fetchTablesMeta();
+}
+
+export type AttachmentFieldRef = { id: string; name: string };
+
+let bookingPhotoFieldCache: AttachmentFieldRef | null = null;
+
+/** Resolve the Booking table photo attachment column (id + display name). */
+export async function resolveBookingPhotoField(
+  tableNameOrId: string,
+): Promise<AttachmentFieldRef | null> {
+  if (bookingPhotoFieldCache) return bookingPhotoFieldCache;
+
+  const tables = await fetchTablesMetaFull();
+  const table =
+    tables.find((t) => t.id === tableNameOrId) ??
+    tables.find((t) => t.name === tableNameOrId) ??
+    tables.find((t) => t.name.toLowerCase() === tableNameOrId.toLowerCase());
+
+  if (!table?.fields) return null;
+
+  const attachmentFields = table.fields.filter(
+    (f) => f.type === "multipleAttachments",
+  );
+
+  const preferred = attachmentFields.find(
+    (f) => f.name === "Add photos/ picture",
+  );
+  const byKeyword =
+    attachmentFields.find((f) => /add photos|picture|photo/i.test(f.name)) ??
+    attachmentFields[0];
+
+  const field = preferred ?? byKeyword;
+  if (!field) return null;
+
+  bookingPhotoFieldCache = { id: field.id, name: field.name };
+  return bookingPhotoFieldCache;
 }
 
 export async function listAirtableTableSummaries(): Promise<
@@ -221,5 +266,78 @@ export async function uploadAttachmentToField(
         ? data.error
         : data.error?.message ?? `Airtable attachment upload failed (${res.status})`;
     throw new Error(msg);
+  }
+}
+
+export type AirtableAttachmentRef = { id?: string; url?: string };
+
+export async function getRecordAttachments(
+  recordId: string,
+  fieldName: string,
+  tableNameOrId: string,
+): Promise<AirtableAttachmentRef[]> {
+  const res = await fetch(
+    `${AIRTABLE_API}/${baseId()}/${encodeURIComponent(tableNameOrId)}/${recordId}`,
+    { headers: { Authorization: authHeaders().Authorization } },
+  );
+
+  const data = (await res.json()) as {
+    fields?: Record<string, Array<{ id?: string; url?: string }> | undefined>;
+    error?: { message: string };
+  };
+  if (!res.ok) {
+    throw new Error(
+      data.error?.message ?? `Failed to read record (${res.status})`,
+    );
+  }
+
+  const attachments = data.fields?.[fieldName];
+  if (!Array.isArray(attachments)) return [];
+  return attachments.filter((a) => a.id || a.url);
+}
+
+function attachmentPayload(
+  existing: AirtableAttachmentRef[],
+  newUrls: string[],
+): Array<{ id: string } | { url: string }> {
+  const payload: Array<{ id: string } | { url: string }> = [];
+  for (const item of existing) {
+    if (item.id) payload.push({ id: item.id });
+    else if (item.url) payload.push({ url: item.url });
+  }
+  for (const url of newUrls) {
+    payload.push({ url });
+  }
+  return payload;
+}
+
+/** Attach files via publicly reachable URLs (Airtable fetches and stores them). */
+export async function setAttachmentUrls(
+  recordId: string,
+  fieldName: string,
+  urls: string[],
+  existing: AirtableAttachmentRef[] = [],
+  tableNameOrId: string,
+): Promise<void> {
+  if (urls.length === 0 && existing.length === 0) return;
+
+  const res = await fetch(
+    `${AIRTABLE_API}/${baseId()}/${encodeURIComponent(tableNameOrId)}/${recordId}`,
+    {
+      method: "PATCH",
+      headers: authHeaders(),
+      body: JSON.stringify({
+        fields: {
+          [fieldName]: attachmentPayload(existing, urls),
+        },
+      }),
+    },
+  );
+
+  const data = (await res.json()) as { error?: { message: string } };
+  if (!res.ok) {
+    throw new Error(
+      data.error?.message ?? `Attachment update failed (${res.status})`,
+    );
   }
 }
