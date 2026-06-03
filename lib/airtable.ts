@@ -2,6 +2,7 @@ import { BOOKING_PHOTO_FIELD } from "@/lib/book-form-options";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
 
 const AIRTABLE_API = "https://api.airtable.com/v0";
+const AIRTABLE_CONTENT_API = "https://content.airtable.com/v0";
 
 type AirtableFieldMeta = { id: string; name: string; type: string };
 type AirtableTableMeta = {
@@ -236,7 +237,7 @@ export async function uploadAttachmentToField(
   const bytes = Buffer.from(await file.arrayBuffer());
 
   const res = await fetch(
-    `${AIRTABLE_API}/${baseId()}/${recordId}/${encodeURIComponent(fieldIdOrName)}/uploadAttachment`,
+    `${AIRTABLE_CONTENT_API}/${baseId()}/${recordId}/${encodeURIComponent(fieldIdOrName)}/uploadAttachment`,
     {
       method: "POST",
       headers: {

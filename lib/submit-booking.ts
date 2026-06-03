@@ -6,9 +6,13 @@ import {
   resolveBookingPhotoField,
   resolveServiceRecordIds,
   setAttachmentUrls,
+  uploadAttachmentToField,
 } from "@/lib/airtable";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
-import { publishFilesForAirtable } from "@/lib/attachment-staging";
+import {
+  assertStagedAttachmentAvailable,
+  publishFilesForAirtable,
+} from "@/lib/attachment-staging";
 import { BOOKING_PHOTO_FIELD } from "@/lib/book-form-options";
 import { emailValidationError } from "@/lib/form-validation";
 
@@ -266,41 +270,52 @@ function readBookingsTablePath(
   return configuredName;
 }
 
+async function uploadPhotoViaUrl(
+  request: Request,
+  recordId: string,
+  tablePath: string,
+  file: File,
+): Promise<void> {
+  const [url] = await publishFilesForAirtable([file], request);
+  assertStagedAttachmentAvailable(url);
+  let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
+  try {
+    existing = await getRecordAttachments(
+      recordId,
+      BOOKING_PHOTO_FIELD,
+      tablePath,
+    );
+  } catch {
+    /* still try URL-only upload */
+  }
+  await setAttachmentUrls(
+    recordId,
+    BOOKING_PHOTO_FIELD,
+    [url],
+    existing,
+    tablePath,
+  );
+}
+
 async function uploadPhotos(
   request: Request,
   recordId: string,
   tablePath: string,
   photos: File[],
 ): Promise<string[]> {
-  await resolveBookingPhotoField(tablePath);
+  const photoField = await resolveBookingPhotoField(tablePath);
+  const fieldKey = photoField?.id ?? photoField?.name ?? BOOKING_PHOTO_FIELD;
   const failures: string[] = [];
 
   for (const file of photos) {
     try {
-      const [url] = await publishFilesForAirtable([file], request);
-      const probe = await fetch(url, { method: "GET" });
-      if (!probe.ok) {
-        throw new Error(
-          `Staged photo URL returned ${probe.status}. Redeploy or set NEXT_PUBLIC_SITE_URL to your public site URL.`,
-        );
-      }
-      let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
       try {
-        existing = await getRecordAttachments(
-          recordId,
-          BOOKING_PHOTO_FIELD,
-          tablePath,
-        );
+        await uploadAttachmentToField(recordId, fieldKey, file);
+        continue;
       } catch {
-        /* still try URL-only upload */
+        /* fall back to public URL attachment */
       }
-      await setAttachmentUrls(
-        recordId,
-        BOOKING_PHOTO_FIELD,
-        [url],
-        existing,
-        tablePath,
-      );
+      await uploadPhotoViaUrl(request, recordId, tablePath, file);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Upload failed";
       failures.push(`${file.name}: ${msg}`);

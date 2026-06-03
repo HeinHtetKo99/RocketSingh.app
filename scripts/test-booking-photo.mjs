@@ -26,8 +26,14 @@ fd.append("budget", "1000-2000");
 fd.append("priority", "Normal");
 fd.append("photos", new Blob([png], { type: "image/png" }), "phone.png");
 
+const headers = {};
+if (base.includes("ngrok")) {
+  headers["ngrok-skip-browser-warning"] = "1";
+}
+
 const res = await fetch(`${base.replace(/\/$/, "")}/api/bookings`, {
   method: "POST",
+  headers,
   body: fd,
 });
 const json = await res.json();

@@ -60,6 +60,27 @@ export function getStagedFile(id: string): StagedFile | undefined {
   return entry;
 }
 
+function stagedAttachmentIdFromUrl(publicUrl: string): string | null {
+  try {
+    const match = new URL(publicUrl).pathname.match(
+      /\/api\/attachments\/([^/]+)$/,
+    );
+    return match?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** Confirms the in-memory staging cache still holds the file (no HTTP self-fetch). */
+export function assertStagedAttachmentAvailable(publicUrl: string): void {
+  const id = stagedAttachmentIdFromUrl(publicUrl);
+  if (!id || !getStagedFile(id)) {
+    throw new Error(
+      "Staged photo is missing or expired. Submit again. On localhost, set NEXT_PUBLIC_SITE_URL to a public URL (e.g. ngrok) so Airtable can download photos.",
+    );
+  }
+}
+
 function mimeTypeForFile(file: File): string {
   if (file.type) return file.type;
   const ext = file.name.split(".").pop()?.toLowerCase();
