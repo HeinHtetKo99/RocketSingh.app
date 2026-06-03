@@ -114,10 +114,11 @@ export const BOOKING_SHIFTS = [
 ] as const;
 
 export const BUDGET_OPTIONS = [
-  "Below ₹ 1,000",
-  "Above ₹ 2,000",
-  "Above ₹ 5,000",
-  "Above ₹ 10,000",
+  "Below 1 Lakh",
+  "Below 5 Lakh",
+  "Below 10 Lakh",
+  "Below 25 Lakh",
+  "Above 25 Lakh",
 ] as const;
 
 export const BOOKING_PRIORITIES = ["Urgent", "Normal"] as const;

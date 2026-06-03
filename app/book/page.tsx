@@ -9,15 +9,15 @@ export const metadata = {
 
 export default function BookPage() {
   return (
-    <div className="flex flex-col bg-gray-50 max-md:overflow-hidden md:min-h-screen pb-0 md:pb-10">
-      <div className="shrink-0 px-4 sm:px-6 py-3 md:py-4 text-center">
-        <div className="text-sm flex items-center justify-center text-gray-500 mb-1 md:mb-2">
+    <div className="flex flex-col bg-white min-h-screen pb-24 md:pb-10">
+      <div className="shrink-0 px-4 py-3 text-center border-b border-gray-100">
+        <div className="text-sm flex items-center justify-center text-gray-500">
           <Link href="/" className="hover:text-teal-700">
             Home
           </Link>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 mx-1 text-gray-500"
+            className="h-4 w-4 mx-1 text-gray-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -25,18 +25,12 @@ export default function BookPage() {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-          <span className="font-semibold text-gray-800">Book</span>
+          <span className="text-gray-700">Book</span>
         </div>
-
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
-          Book a RocketSingh in Chennai
-        </h1>
       </div>
 
-      <div className="w-full max-md:px-0 md:px-3 sm:px-6 max-md:py-0 md:py-6">
-        <div className="w-full max-w-full md:max-w-4xl lg:max-w-5xl mx-auto rounded-none md:rounded-xl overflow-hidden md:shadow-md bg-[#F8F9FB]">
-          <BookForm />
-        </div>
+      <div className="w-full px-4 py-6 sm:px-6">
+        <BookForm />
       </div>
     </div>
   );
