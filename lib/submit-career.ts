@@ -13,7 +13,6 @@ import {
   assertStagedAttachmentAvailable,
   publishFilesForAirtable,
 } from "@/lib/attachment-staging";
-import { yearsLabelToNumber } from "@/lib/career-form-options";
 import { emailValidationError } from "@/lib/form-validation";
 
 const ID_PROOF_FIELD = "ID Proof";
@@ -189,8 +188,9 @@ async function buildAirtableFields(
     fields["Emergency Contact Number"] = payload.emergencyContact;
   }
 
-  const years = yearsLabelToNumber(payload.yearsExperience);
-  if (years !== null) fields["Years of Experience"] = years;
+  if (payload.yearsExperience) {
+    fields["Years of Experience"] = payload.yearsExperience;
+  }
 
   const insurance = payload.insurancePolicyNumber.replace(/\D/g, "");
   if (insurance) {

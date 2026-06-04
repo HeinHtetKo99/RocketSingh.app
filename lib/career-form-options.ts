@@ -92,20 +92,4 @@ export const YEARS_OF_EXPERIENCE_OPTIONS = [
   "More than 20 years",
 ] as const;
 
-export function yearsLabelToNumber(label: string): number | null {
-  const map: Record<string, number> = {
-    "Less than 1 year": 0,
-    "1 year": 1,
-    "2 years": 2,
-    "3 years": 3,
-    "4 years": 4,
-    "5 years": 5,
-    "6–10 years": 8,
-    "11–15 years": 13,
-    "16–20 years": 18,
-    "More than 20 years": 25,
-  };
-  return map[label] ?? null;
-}
-
 export const MAX_CAREER_FILE_MB = 5;
