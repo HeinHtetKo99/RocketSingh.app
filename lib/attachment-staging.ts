@@ -91,7 +91,11 @@ function mimeTypeForFile(file: File): string {
     gif: "image/gif",
     webp: "image/webp",
     heic: "image/heic",
+    heif: "image/heif",
+    bmp: "image/bmp",
     pdf: "application/pdf",
+    doc: "application/msword",
+    docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   };
   return map[ext ?? ""] ?? "application/octet-stream";
 }

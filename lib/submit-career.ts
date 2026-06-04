@@ -3,11 +3,16 @@ import {
   createRecordInTable,
   getRecordAttachments,
   listAirtableTableSummaries,
+  resolveAttachmentField,
   resolveServiceRecordIds,
   setAttachmentUrls,
+  uploadAttachmentToField,
 } from "@/lib/airtable";
 import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
-import { publishFilesForAirtable } from "@/lib/attachment-staging";
+import {
+  assertStagedAttachmentAvailable,
+  publishFilesForAirtable,
+} from "@/lib/attachment-staging";
 import { yearsLabelToNumber } from "@/lib/career-form-options";
 import { emailValidationError } from "@/lib/form-validation";
 
@@ -44,6 +49,17 @@ function resolveTableIdByName(
 
 function formatTableList(tables: { id: string; name: string }[]): string {
   return tables.map((t) => `"${t.name}"`).join(", ") || "(none)";
+}
+
+function readCareerTablePath(
+  configuredName: string,
+  tables: { id: string; name: string }[],
+): string {
+  const tableId = readCareerTableIdFallback();
+  if (tableId) return tableId;
+  const resolved = resolveTableIdByName(tables, configuredName);
+  if (resolved) return resolved.id;
+  return configuredName;
 }
 
 function wrongBaseHint(
@@ -197,24 +213,44 @@ async function buildAirtableFields(
   return { fields, warnings };
 }
 
-async function uploadFile(
+async function uploadCareerFileViaUrl(
   request: Request,
   recordId: string,
   tablePath: string,
-  field: string,
+  fieldName: string,
+  file: File,
+): Promise<void> {
+  const [url] = await publishFilesForAirtable([file], request);
+  assertStagedAttachmentAvailable(url);
+  let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
+  try {
+    existing = await getRecordAttachments(recordId, fieldName, tablePath);
+  } catch {
+    /* still try URL-only upload */
+  }
+  await setAttachmentUrls(recordId, fieldName, [url], existing, tablePath);
+}
+
+async function uploadCareerFile(
+  request: Request,
+  recordId: string,
+  tablePath: string,
+  fieldName: string,
   file: File | null,
 ): Promise<string | null> {
   if (!file?.size) return null;
 
+  const resolved = await resolveAttachmentField(tablePath, fieldName);
+  const fieldKey = resolved?.id ?? resolved?.name ?? fieldName;
+
   try {
-    const [url] = await publishFilesForAirtable([file], request);
-    let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
     try {
-      existing = await getRecordAttachments(recordId, field, tablePath);
+      await uploadAttachmentToField(recordId, fieldKey, file);
+      return null;
     } catch {
-      /* still try URL-only upload */
+      /* fall back to public URL attachment (ngrok / production) */
     }
-    await setAttachmentUrls(recordId, field, [url], existing, tablePath);
+    await uploadCareerFileViaUrl(request, recordId, tablePath, fieldName, file);
     return null;
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Upload failed";
@@ -298,8 +334,15 @@ export async function handleCareerSubmission(
   }
 
   const warnings = [...fieldWarnings];
-  const tablePath = readCareerTableIdFallback() ?? configuredName;
-  const idFail = await uploadFile(
+  let tables: { id: string; name: string }[] = [];
+  try {
+    tables = await listAirtableTableSummaries();
+  } catch {
+    /* use configured name / table id fallback */
+  }
+  const tablePath = readCareerTablePath(configuredName, tables);
+
+  const idFail = await uploadCareerFile(
     request,
     result.id,
     tablePath,
@@ -307,7 +350,7 @@ export async function handleCareerSubmission(
     payload.idProof,
   );
   if (idFail) warnings.push(`ID proof could not be uploaded: ${idFail}.`);
-  const resumeFail = await uploadFile(
+  const resumeFail = await uploadCareerFile(
     request,
     result.id,
     tablePath,

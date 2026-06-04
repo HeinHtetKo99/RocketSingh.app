@@ -64,30 +64,50 @@ async function fetchTablesMetaFull(): Promise<AirtableTableMeta[]> {
 export type AttachmentFieldRef = { id: string; name: string };
 
 let bookingPhotoFieldCache: AttachmentFieldRef | null = null;
+const attachmentFieldCache = new Map<string, AttachmentFieldRef>();
+
+function findTableMeta(
+  tables: AirtableTableMeta[],
+  tableNameOrId: string,
+): AirtableTableMeta | undefined {
+  return (
+    tables.find((t) => t.id === tableNameOrId) ??
+    tables.find((t) => t.name === tableNameOrId) ??
+    tables.find((t) => t.name.toLowerCase() === tableNameOrId.toLowerCase())
+  );
+}
+
+/** Resolve an attachment column by display name (id + name for Content API uploads). */
+export async function resolveAttachmentField(
+  tableNameOrId: string,
+  fieldName: string,
+): Promise<AttachmentFieldRef | null> {
+  const cacheKey = `${tableNameOrId}:${fieldName}`;
+  const cached = attachmentFieldCache.get(cacheKey);
+  if (cached) return cached;
+
+  const tables = await fetchTablesMetaFull();
+  const table = findTableMeta(tables, tableNameOrId);
+  if (!table?.fields) return null;
+
+  const field = table.fields.find(
+    (f) => f.type === "multipleAttachments" && f.name === fieldName,
+  );
+  if (!field) return null;
+
+  const ref = { id: field.id, name: field.name };
+  attachmentFieldCache.set(cacheKey, ref);
+  return ref;
+}
 
 /** Resolve the Booking table photo attachment column (id + display name). */
 export async function resolveBookingPhotoField(
   tableNameOrId: string,
 ): Promise<AttachmentFieldRef | null> {
   if (bookingPhotoFieldCache) return bookingPhotoFieldCache;
-
-  const tables = await fetchTablesMetaFull();
-  const table =
-    tables.find((t) => t.id === tableNameOrId) ??
-    tables.find((t) => t.name === tableNameOrId) ??
-    tables.find((t) => t.name.toLowerCase() === tableNameOrId.toLowerCase());
-
-  if (!table?.fields) return null;
-
-  const attachmentFields = table.fields.filter(
-    (f) => f.type === "multipleAttachments",
-  );
-
-  const field = attachmentFields.find((f) => f.name === BOOKING_PHOTO_FIELD);
-  if (!field) return null;
-
-  bookingPhotoFieldCache = { id: field.id, name: field.name };
-  return bookingPhotoFieldCache;
+  const ref = await resolveAttachmentField(tableNameOrId, BOOKING_PHOTO_FIELD);
+  if (ref) bookingPhotoFieldCache = ref;
+  return ref;
 }
 
 export async function listAirtableTableSummaries(): Promise<
@@ -211,6 +231,10 @@ const ATTACHMENT_MIME_BY_EXT: Record<string, string> = {
   webp: "image/webp",
   heic: "image/heic",
   heif: "image/heif",
+  bmp: "image/bmp",
+  pdf: "application/pdf",
+  doc: "application/msword",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 };
 
 function inferAttachmentMime(file: File): string {
