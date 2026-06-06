@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ServiceCard from "../components/ServiceCard";
 
@@ -137,19 +138,15 @@ export default function Home() {
           </div>
 
           <div className="w-full md:w-1/2">
-            <div className="group relative w-full h-64 sm:h-80 md:h-[420px] rounded-3xl overflow-hidden shadow-2xl border border-teal-100 bg-teal-50">
-              <img
+            <div className="relative w-full overflow-hidden rounded-3xl shadow-2xl border border-teal-100 bg-gray-50">
+              <Image
                 src="/home/hero.png"
                 alt="Rocket Singh — Superfast Service"
-                className="w-full h-full object-cover animate-slideFade"
+                width={1024}
+                height={512}
+                className="w-full h-auto"
+                priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              <Link
-                href="/book"
-                className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 sm:px-8 py-2.5 rounded-full text-sm sm:text-base font-semibold bg-[#0E4541] text-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                Book a Service
-              </Link>
             </div>
           </div>
 
