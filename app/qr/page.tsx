@@ -5,7 +5,7 @@ const cardData = [
   {
     id: 1,
     title: "Website",
-    image: "/qr/website.jpg",
+    image: "/qr/website.png",
   
     description: "Scan to visit our website and explore services.",
   },
@@ -26,7 +26,7 @@ const cardData = [
   {
     id: 4,
     title: "Career",
-    image: "/qr/career.jpg",
+    image: "/qr/career.png",
    
     description: "Apply or inquire about career opportunities with us.",
   },
