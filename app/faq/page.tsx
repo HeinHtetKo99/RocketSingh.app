@@ -27,7 +27,7 @@ export default function Faq() {
     { id: 21, question: "Are cleaning products provided by RocketSingh?", answer: "Yes, we supply all necessary eco-friendly cleaning products and equipment." },
     { id: 22, question: "Is RocketSingh insured?", answer: "Yes, we maintain comprehensive insurance coverage for staff and property during service." },
     { id: 23, question: "Can RocketSingh handle large commercial projects?", answer: "Yes, our team is equipped for large-scale office complexes, hotels, and event venues." },
-    { id: 24, question: "How do I provide feedback after a service?", answer: "Feedback can be submitted via our website, app, or directly to support@rocketsingh.com." },
+    { id: 24, question: "How do I provide feedback after a service?", answer: "Feedback can be submitted via our website, app, or directly to support@rocketsingh.app." },
   ];
 
   const faq1 = faqs.slice(0, Math.ceil(faqs.length / 2));
@@ -90,7 +90,7 @@ export default function Faq() {
 
                 <div className={`transition-all duration-300 ease-in-out overflow-hidden card2 ${openIndex === faq.id ? 'max-h-96 opacity-100 translate-y-0 p-6' : 'max-h-0 opacity-0'}`}>
                   {faq.id === 24 ? (
-                    <>Feedback can be submitted via our website, app, or directly to <a href="mailto:support@rocketsingh.com" className="underline">support@rocketsingh.com</a>.</>
+                    <>Feedback can be submitted via our website, app, or directly to <a href="mailto:support@rocketsingh.app" className="underline">support@rocketsingh.app</a>.</>
                   ) : faq.answer}
                 </div>
               </div>

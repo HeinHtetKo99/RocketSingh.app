@@ -235,12 +235,12 @@ export default function Contact() {
             <p className="text-sm leading-relaxed">Anna Salai, T. Nagar,<br />Chennai, India</p>
           </div>
           <a
-            href="mailto:support@rocketsingh.com"
+            href="mailto:support@rocketsingh.app"
             className="group bg-white rounded-xl p-4 text-center border-2 border-teal-900 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
           >
             <div className="flex justify-center mb-2"><EmailIcon /></div>
             <h3 className="text-lg font-semibold text-teal-900 mb-1">Email Us</h3>
-            <p className="text-sm leading-relaxed">support@rocketsingh.com</p>
+            <p className="text-sm leading-relaxed">support@rocketsingh.app</p>
           </a>
           <Link
             href="/book"

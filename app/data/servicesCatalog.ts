@@ -12,28 +12,58 @@ export type ServiceCategory = {
 
 export const serviceCategories: ServiceCategory[] = [
   {
-    title: "Cleaning & Exterior Maintenance",
+    title: "Home Services",
     services: [
       {
-        title: "Deep Cleaning",
-        slug: "deep-cleaning",
-        image: "/services/deep-cleaning.jpg",
-        desc: "Deep cleaning provides a thorough and detailed cleaning of your entire home, targeting hidden dirt, grime, and bacteria. It includes scrubbing floors, sanitizing kitchens and bathrooms, dusting hard-to-reach areas, and refreshing upholstery.",
+        title: "Salon at Home",
+        slug: "salon-at-home",
+        image: "/services/salon-at-home.jpg",
+        desc: "Salon at Home services bring professional beauty treatments directly to your doorstep. From haircuts and styling to skincare and makeup, our experts provide a spa-like experience in the comfort of your own home.",
+      },
+      
+      {
+        title: "Bridal Makeup",
+        slug: "bridal-makeup",
+        image: "/services/bridal-makeup.jpg",
+        desc: "Professional bridal makeup services ensure you look stunning on your special day. Our skilled artists provide customized looks that enhance your natural beauty and complement your dress and style.",
+      },
+      
+      {
+        title: "Chef at Home",
+        slug: "chef-at-home",
+        image: "/services/chef-at-home.jpg",
+        desc: "Chef at Home provides professional culinary services for home cooking needs. Our skilled chefs prepare delicious meals tailored to your preferences and dietary requirements. This service ensures a delightful dining experience without the hassle of meal planning or cooking.",
+      },
+      
+    ],
+  },
+
+  {
+    title: "Health & Wellness Services",
+    services: [
+      
+      {
+        title: "Massage Therapy",
+        slug: "massage-therapy",
+        image: "/services/massage-therapy.jpg",
+        desc: "Massage therapy services help relieve stress, reduce muscle tension, and promote overall wellness. This includes relaxation massages, deep tissue therapy, and therapeutic treatments tailored to individual needs.",
       },
       {
-        title: "Pressure Washing",
-        slug: "pressure-washing",
-        image: "/services/pressure-washing.jpg",
-        desc: "Pressure washing removes dirt, mold, algae, and stains from outdoor surfaces using high-pressure water. It's ideal for driveways, patios, walls, and sidewalks, restoring their clean, fresh, original appearance quickly and effectively.",
+        title: "Spa at Home",
+        slug: "spa-at-home",
+        image: "/services/spa-at-home.jpg",
+        desc: "Spa at Home services bring professional wellness treatments directly to your doorstep. From massages and body treatments to skincare and relaxation techniques, our experts provide a luxurious experience in the comfort of your own home.",
       },
       {
-        title: "Roof & Gutter Cleaning",
-        slug: "roof-gutter-cleaning",
-        image: "/services/roof-gutter-cleaning.jpg",
-        desc: "Roof and gutter cleaning ensures proper drainage and protects your home from water damage. This service removes leaves, debris, moss, and dirt buildup from rooftops and gutters. Clean gutters prevent blockages, leaks, and structural issues, especially during heavy rainfall.",
+        title: "Physiotherapy",
+        slug: "physiotherapy",
+        image: "/services/physiotherapy.jpg",
+        desc: "Physiotherapy services provide professional rehabilitation and recovery support. From injury treatment to fitness enhancement, our experts help you regain mobility and improve overall well-being.",
       },
     ],
   },
+
+
   {
     title: "Home Repair & Maintenance",
     services: [
@@ -62,10 +92,10 @@ export const serviceCategories: ServiceCategory[] = [
         desc: "Electrical repair services ensure your home's wiring, outlets, and power systems function safely and efficiently. From fixing faulty switches to resolving power issues, trained professionals handle all electrical concerns. Proper repairs reduce risks such as short circuits and fire hazards.",
       },
       {
-        title: "Flooring Fixes",
-        slug: "flooring-fixes",
-        image: "/services/flooring.jpg",
-        desc: "Flooring fixes restore damaged or worn-out surfaces, including tiles, wood, and other materials. This service addresses cracks, loose tiles, uneven surfaces, and general wear. It improves both safety and appearance while extending the life of your flooring.",
+        title: "Tiling",
+        slug: "tiling",
+        image: "/services/tiling.jpg",
+        desc: "Tiling services involve installing, repairing, or replacing tiles in various areas of your home. Whether it's bathroom tiling, kitchen backsplashes, or floor tiling, skilled professionals ensure a seamless and durable finish. This service enhances the visual appeal and functionality of your space.",
       },
       {
         title: "Washing Machine Repair",
@@ -73,16 +103,18 @@ export const serviceCategories: ServiceCategory[] = [
         image: "/services/washing-machine-repair.jpg",
         desc: "Washing machine repair services diagnose and fix issues such as leaks, noise, and poor performance. Skilled technicians ensure your appliance runs efficiently, saving time and energy. Regular maintenance extends the lifespan of your machine and prevents costly replacements.",
       },
+
+      
     ],
   },
   {
-    title: "Installation & Smart Home",
+    title: "Smart Home Services",
     services: [
       {
-        title: "Smart Home Setup",
-        slug: "smart-home-setup",
-        image: "/services/smart-home.jpg",
-        desc: "Smart home setup integrates modern technology into your living space, including CCTV, automation systems, and smart devices. This service enhances security, convenience, and energy efficiency. Control lighting, appliances, and surveillance remotely for a seamless experience.",
+        title: "Home Automation",
+        slug: "home-automation",
+        image: "/services/home-automation.jpg",
+        desc: "Home automation integrates modern technology into your living space, including CCTV, automation systems, and smart devices. This service enhances security, convenience, and energy efficiency. Control lighting, appliances, and surveillance remotely for a seamless experience.",
       },
       {
         title: "EV Charger Installation",
@@ -91,8 +123,8 @@ export const serviceCategories: ServiceCategory[] = [
         desc: "EV charger installation provides a reliable and convenient solution for charging electric vehicles at home. Experts ensure proper setup, safety compliance, and efficient power usage. This service supports sustainable living while offering the ease of charging your vehicle anytime.",
       },
       {
-        title: "AC Servicing",
-        slug: "ac-servicing",
+        title: "AC Services",
+        slug: "ac-services",
         image: "/services/ac-service.jpg",
         desc: "AC servicing ensures your cooling system operates efficiently and reliably. This service includes cleaning filters, checking components, and optimizing performance. Regular maintenance improves air quality, reduces energy consumption, and prevents breakdowns.",
       },
@@ -108,10 +140,16 @@ export const serviceCategories: ServiceCategory[] = [
         desc: "Painting services refresh your home with high-quality interior and exterior finishes. Professionals ensure smooth application, proper color selection, and long-lasting results. Whether renovating or updating, painting enhances appearance and protects surfaces.",
       },
       {
-        title: "Wallpaper",
-        slug: "wallpaper",
-        image: "/services/wall-decoration.jpg",
-        desc: "Wallpaper services provide stylish wall decoration options to enhance interior design. From modern patterns to classic textures, professionals ensure precise installation and a flawless finish. Wallpaper adds personality and elegance to any room.",
+        title: "Indoor Planting",
+        slug: "indoor-planting",
+        image: "/services/indoor-planting.jpg",
+        desc: "Indoor planting services help you create a lush, green environment inside your home. From selecting the right plants to providing care instructions, our experts ensure your indoor garden thrives.",
+      },
+      {
+        title: "CCTV Services",
+        slug: "cctv-services",
+        image: "/services/cctv.jpg",
+        desc: "CCTV services provide comprehensive surveillance solutions for homes and businesses. Our experts install, maintain, and optimize security systems to ensure peace of mind. From camera placement to remote monitoring, we deliver reliable protection for your property.",
       },
       {
         title: "Drywall Repair",
@@ -119,40 +157,36 @@ export const serviceCategories: ServiceCategory[] = [
         image: "/services/drywall-repair.jpg",
         desc: "Drywall repair fixes cracks, holes, and damaged wall surfaces. This service restores smoothness and prepares walls for painting or decoration. Professional repairs ensure durability and a seamless finish.",
       },
+      
       {
-        title: "Tile Work",
-        slug: "tile-work",
-        image: "/services/tiling-work.jpg",
-        desc: "Tile work includes installation and repair of tiles for floors, walls, kitchens, and bathrooms. Skilled professionals ensure precise alignment, durability, and aesthetic appeal. This service enhances both functionality and design, creating clean and stylish surfaces that are easy to maintain and long-lasting.",
+        title: "Modular Kitchen",
+        slug: "modular-kitchen",
+        image: "/services/modular-kitchen.jpg",
+        desc: "Modular kitchen services offer complete kitchen solutions with pre-fabricated units. This includes design, installation, and customization options. Professional services ensure a seamless integration of functionality and aesthetics for your modern kitchen.",
       },
       {
-        title: "Window Repair",
-        slug: "window-repair",
-        image: "/services/window-repair.jpg",
-        desc: "Window repair services fix broken glass, frames, and sealing issues. Proper repairs improve insulation, security, and energy efficiency. This service ensures smooth operation and enhances the overall appearance of your home. Well-maintained windows provide better comfort and protection from weather conditions.",
-      },
-      {
-        title: "Floor Repair",
-        slug: "floor-repair",
-        image: "/services/floor-repair.jpg",
-        desc: "Floor repair restores damaged flooring, addressing cracks, wear, and uneven surfaces. This service improves safety, durability, and visual appeal. Professional solutions ensure long-lasting results, making your floors look new and function properly for everyday use.",
+        title: "Parqueting",
+        slug: "parqueting",
+        image: "/services/parqueting.jpg",
+        desc: "Parqueting services involve installing and repairing wooden floors. Skilled professionals ensure precise fitting, durability, and aesthetic appeal. This service enhances the visual beauty and functionality of your space.",
       },
     ],
   },
   {
-    title: "Outdoor Services",
+    title: "Home Enhancement Services",
     services: [
+      
       {
-        title: "Lawn Care",
-        slug: "lawn-care",
-        image: "/services/lawn-care.jpg",
-        desc: "Lawn care services maintain healthy, green grass and beautiful outdoor spaces. This includes mowing, fertilizing, and landscaping. Regular care improves curb appeal and creates a relaxing outdoor environment. It keeps your lawn fresh, clean, and well-managed throughout the year.",
+        title: "Home Renovation ",
+        slug: "home-renovation",
+        image: "/services/home-renovation.jpg",
+        desc: "Home renovation services transform your living space with modern updates and improvements. From kitchen and bathroom makeovers to complete interior redesigns, our professionals deliver quality results that enhance comfort and style.",
       },
       {
-        title: "Tree Cutting",
-        slug: "tree-cutting",
-        image: "/services/tree-cutting.jpg",
-        desc: "Tree cutting services handle trimming, pruning, and safe removal of trees. This helps maintain safety, prevent damage, and improve landscape appearance. Professional care ensures proper growth and reduces risks during storms or heavy winds.",
+        title: "RO Water Purifying",
+        slug: "ro-water-purifying",
+        image: "/services/ro-water-purifying.jpg",
+        desc: "RO (Reverse Osmosis) water purifying systems provide clean, safe drinking water by removing impurities, contaminants, and harmful substances. ",
       },
       {
         title: "Garden Care",
@@ -161,32 +195,32 @@ export const serviceCategories: ServiceCategory[] = [
         desc: "Garden care includes planting, pruning, and maintaining flowers and plants. This service keeps your garden vibrant and healthy. It enhances outdoor beauty and creates a peaceful, natural environment for relaxation and enjoyment.",
       },
       {
-        title: "Irrigation",
-        slug: "irrigation",
-        image: "/services/smart-irrigation.jpg",
-        desc: "Irrigation services install and maintain water systems for efficient plant watering. Proper irrigation supports healthy growth and conserves water. This service ensures your garden and lawn receive consistent hydration with minimal effort.",
+        title: "Pest Control",
+        slug: "pest-control",
+        image: "/services/pest-control.jpg",
+        desc: "Pest control services manage and eliminate unwanted insects and rodents. This includes inspection, treatment, and prevention strategies. Professional pest control ensures a safe and comfortable living environment while protecting your property from damage.",
       },
       {
-        title: "Fence Repair",
-        slug: "fence-repair",
-        image: "/services/fence-repair.jpg",
-        desc: "Fence repair services fix damaged or broken fencing, improving security and appearance. Strong and well-maintained fences protect your property while enhancing its overall look. Professional repairs ensure durability and reliability.",
+        title: "Masonry Repair",
+        slug: "masonry-repair",
+        image: "/services/masonry-repair.jpg",
+        desc: "Masonry repair services fix damaged or deteriorated stone, brick, and concrete structures. This includes addressing cracks, leaks, and structural issues. Professional repairs ensure durability and maintain the aesthetic appeal of your property.",
       },
       {
-        title: "Outdoor Lighting",
-        slug: "outdoor-lighting",
-        image: "/services/outdoor-lightning.jpg",
-        desc: "Outdoor lighting installation enhances visibility, safety, and aesthetics. This service includes pathway lights, garden lighting, and security fixtures. It creates a welcoming atmosphere and improves nighttime functionality of your outdoor spaces.",
+        title: "Deep Cleaning",
+        slug: "deep-cleaning",
+        image: "/services/deep-cleaning.jpg",
+        desc: "Deep cleaning provides a thorough and detailed cleaning of your entire home, targeting hidden dirt, grime, and bacteria. It includes scrubbing floors, sanitizing kitchens and bathrooms, dusting hard-to-reach areas, and refreshing upholstery.",
       },
     ],
   },
   {
-    title: "Moving & Property",
+    title: "Additional Services",
     services: [
       {
-        title: "Moving",
-        slug: "moving",
-        image: "/services/relocation-assistance.jpg",
+        title: "Packing & Moving",
+        slug: "packing-and-moving",
+        image: "/services/packing-and-moving.jpg",
         desc: "Moving services assist with safe and efficient relocation of your belongings. Professionals handle packing, transport, and unloading. This service reduces stress and ensures your items reach their destination securely and on time.",
       },
       {
@@ -196,34 +230,12 @@ export const serviceCategories: ServiceCategory[] = [
         desc: "Airbnb maintenance ensures your rental property remains clean, functional, and guest-ready. Regular inspections, repairs, and cleaning maintain high standards. This service improves guest satisfaction and helps maximize bookings.",
       },
       {
-        title: "Packing",
-        slug: "packing",
-        image: "/services/packing.jpg",
-        desc: "Packing services provide organized and secure packing of your belongings. Professionals use proper materials to prevent damage during transit. This service saves time and ensures safe handling of all items.",
+        title: "Refrigerator Repair",
+        slug: "refrigerator-repair",
+        image: "/services/refrigerator-repair.jpg",
+        desc: "Refrigerator repair services fix issues with your appliance, ensuring it operates efficiently. From minor maintenance to major repairs, our technicians provide reliable solutions to keep your refrigerator functioning at its best.",
       },
     ],
   },
-  {
-    title: "Subscription Services",
-    services: [
-      {
-        title: "Home Concierge",
-        slug: "home-concierge",
-        image: "/services/home-concierge.jpg",
-        desc: "Home concierge services manage daily household tasks and maintenance. From scheduling repairs to overseeing services, it provides convenience and peace of mind. Ideal for busy homeowners seeking efficient home management.",
-      },
-      {
-        title: "Cleaning Plan",
-        slug: "cleaning-plan",
-        image: "/services/cleaning-plan.jpg",
-        desc: "Cleaning plans offer regular and scheduled cleaning services tailored to your needs. This ensures consistent cleanliness and hygiene. It helps maintain a fresh and organized home environment effortlessly.",
-      },
-      {
-        title: "Maintenance Plan",
-        slug: "maintenance-plan",
-        image: "/services/maintenance-plan.jpg",
-        desc: "Maintenance plans provide seasonal and routine care for your home. Regular inspections and servicing prevent major issues. This service ensures your property stays in excellent condition year-round with minimal hassle.",
-      },
-    ],
-  },
+  
 ];

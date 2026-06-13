@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps) {
     openGraph: {
       title: post.title,
       description: post.description,
-      images: [{ url: `https://www.rocketsingh.com${post.image}` }],
+      images: [{ url: `https://www.rocketsingh.app${post.image}` }],
     },
   };
 }

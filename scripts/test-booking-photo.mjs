@@ -79,7 +79,7 @@ if (base.includes("localhost") || base.includes("127.0.0.1")) {
   console.log(
     "\nPARTIAL PASS: API upload succeeded; Airtable cannot fetch localhost URLs.",
   );
-  console.log("Test production: node scripts/test-booking-photo.mjs https://rocketsingh-six.vercel.app");
+  console.log("Test production: node scripts/test-booking-photo.mjs https://rocketsingh.app");
   process.exit(0);
 }
 

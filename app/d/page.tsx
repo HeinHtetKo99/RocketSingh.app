@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Download App | RocketSingh",
-  description: "Download the RocketSingh app for super fast on demand home services.",
+  description: "Download the RocketSingh app for superfast on demand home services.",
 };
 
 const PLAY_STORE_URL =

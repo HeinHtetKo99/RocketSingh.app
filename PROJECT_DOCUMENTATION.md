@@ -7,9 +7,9 @@ About the Project
 
 RocketSingh is an on-demand home services platform for Chennai, India. It is the Indian version of TACKLES PRO, which runs in San Francisco.
 
-Live website: rocketsingh-six.vercel.app
-Planned production domain: rocketsingh.com
-Support email: support@rocketsingh.com
+Live website: rocketsingh.app
+Planned production domain: rocketsingh.app
+Support email: support@rocketsingh.app
 Phone: +91 98511 52774
 WhatsApp: b.broadpress.org/rocketsingh
 

@@ -20,7 +20,7 @@ const cookiePolicy = () => {
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Introduction</h2>
             <p className="about leading-relaxed mb-2">
              RocketSingh uses cookies and similar tracking 
-             technologies on https://rocketsingh.com to improve your experience and to 
+             technologies on https://rocketsingh.app to improve your experience and to 
              operate our services effectively. This Cookie Policy explains what cookies
              are, how we use them, the types of cookies we use, and how you can manage
              or disable them if you prefer.</p>
@@ -74,7 +74,7 @@ const cookiePolicy = () => {
           </div>
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Contact Us</h2>
-            <p className="about leading-relaxed mb-1">Email: <a href="mailto:support@rocketsingh.com" className="hover:underline">support@rocketsingh.com</a></p>
+            <p className="about leading-relaxed mb-1">Email: <a href="mailto:support@rocketsingh.app" className="hover:underline">support@rocketsingh.app</a></p>
             <p className="about leading-relaxed mb-1">Phone: +91-XXXXXXXXXX</p>
             <p className="about leading-relaxed">Address: [RocketSingh Address], Chennai, India</p>
           </div>

@@ -6,7 +6,7 @@ import { Phone } from "lucide-react";
 import BrandLogo from "./BrandLogo";
 import SideNavDrawer from "./SideNavDrawer";
 
-const PHONE_HREF = "tel:+919851152774";
+const PHONE_HREF = "tel:+9779852024365";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

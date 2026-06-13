@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
           <p className="about leading-relaxed">
             RocketSingh (also referred to as &quot;RocketSingh&quot;,
             &quot;us&quot;, &quot;we&quot; or &quot;our&quot;) operates the
-            www.rocketsingh.com website and mobile application (the &ldquo;Service&rdquo;). 
+            www.rocketsingh.app website and mobile application (the &ldquo;Service&rdquo;). 
             This Privacy Policy explains how we collect, use, and disclose 
             personal data when you use our Service.
           </p>
@@ -192,7 +192,7 @@ const PrivacyPolicy = () => {
               Contact Us
             </h2>
             <p className="about leading-relaxed mb-1">
-              Email: <a href="mailto:support@rocketsingh.com" className="hover:underline">support@rocketsingh.com</a>
+              Email: <a href="mailto:support@rocketsingh.app" className="hover:underline">support@rocketsingh.app</a>
             </p>
             <p className="about leading-relaxed">
               Address: RocketSingh, Chennai, India

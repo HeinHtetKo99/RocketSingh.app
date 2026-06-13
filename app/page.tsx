@@ -10,8 +10,8 @@ const displayLocation = "Chennai, India";
 const slides = [
   {
     id: 1,
-    title: `Professional Home Cleaning in ${displayLocation}`,
-    subtitle: "Trusted cleaning marketplace",
+    title: `Professional Home Services in ${displayLocation}`,
+    subtitle: "Trusted professional marketplace",
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ const slides = [
   },
   {
     id: 3,
-    title: `Commercial & Office Cleaning`,
-    subtitle: "Spotless spaces for every business",
+    title: `On Demand Home Services`,
+    subtitle: "Spotless spaces for every ",
   },
 ];
 
@@ -46,34 +46,34 @@ const sections = {
 
 const expertServices = [
   {
-    title: "Home Cleaning",
-    desc: "Complete residential cleaning including deep cleaning of floors, bathrooms, kitchens, and living areas for a spotless home.",
-    image: "/services/home-cleaning.jpg",
-    href: "/services/home-cleaning",
+    title: "Spa at Home",
+    desc: "Spa at Home services bring professional wellness treatments directly to your doorstep. From massages and body treatments to skincare and relaxation techniques.",
+    image: "/services/spa-at-home.jpg",
+    href: "/services/spa-at-home",
   },
   {
-    title: "Kitchen Cleaning",
-    desc: "Professional kitchen sanitization removing grease, grime, and bacteria from countertops, appliances, and cooking areas.",
-    image: "/services/kitchen-cleaning.jpg",
-    href: "/services/kitchen-cleaning",
+    title: "Bridal Makeup",
+    desc: "Professional bridal makeup services ensure you look stunning on your special day. Our skilled artists provide customized looks that enhance your natural beauty.",
+    image: "/services/bridal-makeup.jpg",
+    href: "/services/bridal-makeup",
   },
   {
-    title: "A/C Cleaning",
-    desc: "Complete AC servicing including filter cleaning, coil maintenance, and system performance checks for healthy indoor air.",
-    image: "/services/ac-cleaning.jpg",
-    href: "/services/ac-cleaning",
+    title: "Salon at Home",
+    desc: "Salon at Home services bring professional beauty treatments directly to your doorstep. From haircuts and styling to skincare and makeup.",
+    image: "/services/salon-at-home.jpg",
+    href: "/services/salon-at-home",
   },
 ];
 
 const testimonials = [
   {
-    name: "Rajesh Thapa",
+    name: "Rajesh Devan",
     image: "/home/testimonials/1.png",
     feedback:
       "Amazing service! The team is punctual, professional, and pays attention to every detail. Highly recommend.",
   },
   {
-    name: "Sumnitra Shrestha",
+    name: "Sumnitra Patel",
     image: "/home/testimonials/2.png",
     feedback:
       "Our office has never been cleaner. Consistent, thorough, and friendly staff. Very satisfied!",

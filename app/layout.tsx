@@ -8,29 +8,29 @@ import { Suspense } from 'react';
 
 
 export const metadata = {
-  metadataBase: new URL("https://rocketsingh-six.vercel.app"),
-  title: "RocketSingh | Super Fast Service",
-  description: "RocketSingh is a super fast on demand home service.",
-  keywords: "RocketSingh, Super Fast Service, On Demand Home Service, India",
+  metadataBase: new URL("https://rocketsingh.app"),
+  title: "RocketSingh | SuperFast Service",
+  description: "RocketSingh is a superfast on demand home service.",
+  keywords: "RocketSingh, SuperFast Service, On Demand Home Service, India",
   authors: [{ name: "RocketSingh" }],
   openGraph: {
-    title: "RocketSingh | Super Fast Service",
-    description: "RocketSingh is a super fast on demand home service.",
-    url: "https://rocketsingh-six.vercel.app",
+    title: "RocketSingh | SuperFast Service",
+    description: "RocketSingh is a superfast on demand home service.",
+    url: "https://rocketsingh.app",
     images: [
       {
         url: "/og/default.png",
         width: 1200,
         height: 630,
-        alt: "RocketSingh | Super Fast Service",
+        alt: "RocketSingh | SuperFast Service",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RocketSingh | Super Fast Service",
-    description: "RocketSingh is a super fast on demand home service.",
+    title: "RocketSingh | SuperFast Service",
+    description: "RocketSingh is a superfast on demand home service.",
     images: ["/og/default.png"],
   },
 };

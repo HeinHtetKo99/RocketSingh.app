@@ -9,25 +9,25 @@ export default function Document() {
         <link rel="manifest" href="/manifest.json" />
 
         {/* Primary Meta Tags */}
-        <meta name="title" content="RocketSingh | Super Fast Service" />
-        <meta name="description" content="RocketSingh is a super fast on demand home service." />
-        <meta name="keywords" content="RocketSingh, Super Fast Service, On Demand Home Service, India" />
+        <meta name="title" content="RocketSingh | SuperFast Service" />
+        <meta name="description" content="RocketSingh is a superfast on demand home service." />
+        <meta name="keywords" content="RocketSingh, SuperFast Service, On Demand Home Service, India" />
         <meta name="author" content="RocketSingh" />
 
         {/* Open Graph */}
-        <meta property="og:url" content="https://rocketsingh-six.vercel.app" />
+        <meta property="og:url" content="https://rocketsingh.app" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="RocketSingh | Super Fast Service" />
-        <meta property="og:description" content="RocketSingh is a super fast on demand home service." />
-        <meta property="og:image" content="https://rocketsingh-six.vercel.app/og/default.png" />
+        <meta property="og:title" content="RocketSingh | SuperFast Service" />
+        <meta property="og:description" content="RocketSingh is a superfast on demand home service." />
+        <meta property="og:image" content="https://rocketsingh.app/og/default.png" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="rocketsingh-six.vercel.app" />
-        <meta property="twitter:url" content="https://rocketsingh-six.vercel.app" />
-        <meta name="twitter:title" content="RocketSingh | Super Fast Service" />
-        <meta name="twitter:description" content="RocketSingh is a super fast on demand home service." />
-        <meta name="twitter:image" content="https://rocketsingh-six.vercel.app/og/default.png" />
+        <meta property="twitter:domain" content="rocketsingh.app" />
+        <meta property="twitter:url" content="https://rocketsingh.app" />
+        <meta name="twitter:title" content="RocketSingh | SuperFast Service" />
+        <meta name="twitter:description" content="RocketSingh is a superfast on demand home service." />
+        <meta name="twitter:image" content="https://rocketsingh.app/og/default.png" />
       </Head>
       <body>
         {/* Google Tag Manager (noscript) */}

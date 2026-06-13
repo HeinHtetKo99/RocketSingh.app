@@ -22,7 +22,7 @@ function isStandaloneApp() {
 
 export default function SmartAppBanner() {
   const [visible, setVisible] = useState(false);
-  const [hostname, setHostname] = useState("rocketsingh.com");
+  const [hostname, setHostname] = useState("rocketsingh.app");
 
   useEffect(() => {
     if (isStandaloneApp()) return;

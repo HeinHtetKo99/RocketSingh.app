@@ -17,13 +17,13 @@ const Disclaimer = () => {
 
           <p className="about leading-relaxed">
             RocketSingh (also referred to as &ldquo;us&rdquo;, &ldquo;we&rdquo; or &ldquo;our&rdquo;) operates the
-            www.rocketsingh.com website and mobile application (the &ldquo;Service&rdquo;). This Disclaimer 
+            www.rocketsingh.app website and mobile application (the &ldquo;Service&rdquo;). This Disclaimer 
             describes our policies regarding the collection, use, and disclosure of personal data 
             while using the Service.
           </p>
 
           <p className="about leading-relaxed">
-            By using rocketsingh.com, you agree to the collection and use of information as described 
+            By using rocketsingh.app, you agree to the collection and use of information as described 
             in this Privacy Policy. Terms defined here have the same meaning as in our Terms & 
             Conditions unless otherwise redefined.
           </p>
@@ -153,7 +153,7 @@ const Disclaimer = () => {
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Contact Us</h2>
             <p className="about leading-relaxed">
-              Email: <a href="mailto:support@rocketsingh.com" className="hover:underline">support@rocketsingh.com</a>
+              Email: <a href="mailto:support@rocketsingh.app" className="hover:underline">support@rocketsingh.app</a>
             </p>
           </div>
 

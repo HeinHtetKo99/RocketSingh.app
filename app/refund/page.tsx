@@ -43,7 +43,7 @@ export default function RefundPolicy() {
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Refund Process</h2>
             <p className="about leading-relaxed mb-2">
-              To request a refund, contact our support team at <a href="mailto:support@rocketsingh.com" className="font-medium hover:underline">support@rocketsingh.com</a> within 3 days of the service date. Provide your booking details, reason for the refund, and any supporting photos or documentation.
+              To request a refund, contact our support team at <a href="mailto:support@rocketsingh.app" className="font-medium hover:underline">support@rocketsingh.app</a> within 3 days of the service date. Provide your booking details, reason for the refund, and any supporting photos or documentation.
             </p>
             <p className="about leading-relaxed">
               Once reviewed, our team will respond within 3–5 business days. Approved refunds will be issued to the original payment method within 5–7 business days.
@@ -52,7 +52,7 @@ export default function RefundPolicy() {
 
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Contact Us</h2>
-            <p className="about leading-relaxed mb-1">Email: <a href="mailto:support@rocketsingh.com" className="hover:underline">support@rocketsingh.com</a></p>
+            <p className="about leading-relaxed mb-1">Email: <a href="mailto:support@rocketsingh.app" className="hover:underline">support@rocketsingh.app</a></p>
             <p className="about leading-relaxed mb-1">Phone: +91-98511 52774</p>
             <p className="about leading-relaxed">Address: T. Nagar, Chennai, India</p>
           </div>

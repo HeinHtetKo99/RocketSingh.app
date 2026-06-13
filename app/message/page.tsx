@@ -54,7 +54,7 @@ const Message = () => {
               <footer className="mt-10 text-left">
                 <p className="text-xl font-bold">Ramesh Koirala</p>
                 <p className="text-sm mb-2">Director</p>
-                <p className="font-medium mb-4"><a href="mailto:support@rocketsingh.com" className="hover:underline">support@rocketsingh.com</a></p>
+                <p className="font-medium mb-4"><a href="mailto:support@rocketsingh.app" className="hover:underline">support@rocketsingh.app</a></p>
 
                 {/* Social Icons */}
                 <div className="flex gap-4 mt-3">

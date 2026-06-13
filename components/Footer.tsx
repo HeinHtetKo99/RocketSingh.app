@@ -59,14 +59,16 @@ const Footer = () => {
             </div>
 
             <p className="text-[15px] leading-relaxed mb-4">
-              RocketSingh is the Indian version of TACKLES PRO — a growing platform built with a vision to deliver fast, reliable, and professional on-demand services across India.
+              RocketSingh is more than just a name. It represents a mindset, a work ethic, and a commitment to serving local communities with professionalism and reliability.
             </p>
             <p className="text-[15px] leading-relaxed mb-4">
-              Powered by a pool of dedicated, skilled, and trained professionals, RocketSingh is committed to providing SuperFast Services 24 hours 365 days a year. From emergency support to daily maintenance solutions, our mission is to connect customers with trusted experts anytime, anywhere.
+              Traditionally, a"RocketSingh" is someone who is dependable, punctual, highly skilled, dedicated to his work, and always willing to help people around him. 
             </p>
-            <p className="text-[15px] leading-relaxed">
-              With a strong focus on speed, professionalism, customer satisfaction, and digital convenience, RocketSingh aims to redefine modern service delivery by bringing technology-driven workforce solutions to homes, offices, and businesses throughout India.
+            
+            <p className="text-[15px] leading-relaxed mb-4">
+              Inspired by these values, ROCKETSINGH is created as an on-demand hyperlocal service platform that connects home owners with skilled professionals for a wide range of household and commercial services.
             </p>
+          
           </div>
 
           {/* RIGHT COLUMNS */}
@@ -177,19 +179,19 @@ const Footer = () => {
           {/* CONTACT BOXES */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
 
-            <a href="mailto:support@rocketsingh.com" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
+            <a href="mailto:support@rocketsingh.app" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
               <img src="/icons/email.svg" alt="email" className="h-6 w-6" />
-              <span className="text-sm">support@rocketsingh.com</span>
+              <span className="text-sm">support@rocketsingh.app</span>
             </a>
 
-            <a href="tel:+919851152774" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
+            <a href="tel:+9779852024365" className="flex items-center gap-2 border-2 rounded-lg px-7 py-3 w-full sm:w-auto">
               <img src="/icons/phone.svg" alt="phone" className="h-6 w-6" />
-              <span className="text-sm">+91-98511 52774</span>
+              <span className="text-sm">+977-9852024365</span>
             </a>
 
-            <a href="https://wa.me/919851152774" target="_blank" className="flex items-center gap-2 border-2 rounded-lg px-6 py-3 w-full sm:w-auto">
+            <a href="https://wa.me/9779852024365" target="_blank" className="flex items-center gap-2 border-2 rounded-lg px-6 py-3 w-full sm:w-auto">
               <img src="/icons/whatsapp.svg" alt="whatsapp" className="h-6 w-6" />
-              <span className="text-sm">+91 98511 52774</span>
+              <span className="text-sm">+977 98520 24365</span>
             </a>
           </div>
         </div>
