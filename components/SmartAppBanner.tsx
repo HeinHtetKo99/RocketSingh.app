@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.pracas.rocketsingh";
+const AUTO_HIDE_MS = 30_000;
+const SCROLL_THRESHOLD = 8;
 
 function isMobileBrowser() {
   if (typeof window === "undefined") return false;
@@ -32,7 +34,24 @@ export default function SmartAppBanner() {
     setVisible(true);
     document.documentElement.dataset.smartBanner = "visible";
 
+    let hidden = false;
+    const hide = () => {
+      if (hidden) return;
+      hidden = true;
+      setVisible(false);
+      delete document.documentElement.dataset.smartBanner;
+    };
+
+    const onScroll = () => {
+      if (window.scrollY > SCROLL_THRESHOLD) hide();
+    };
+
+    const timer = window.setTimeout(hide, AUTO_HIDE_MS);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
       delete document.documentElement.dataset.smartBanner;
     };
   }, []);
@@ -40,7 +59,11 @@ export default function SmartAppBanner() {
   if (!visible) return null;
 
   return (
-    <div className="smart-app-banner" role="region" aria-label="Install RocketSingh app">
+    <div
+      className="smart-app-banner"
+      role="region"
+      aria-label="Install RocketSingh App"
+    >
       <div className="smart-app-banner__card">
         <Image
           src="/logo/rocketsingh-logo.png"
@@ -51,7 +74,7 @@ export default function SmartAppBanner() {
         />
 
         <div className="smart-app-banner__copy">
-          <p className="smart-app-banner__title">Install RocketSingh</p>
+          <p className="smart-app-banner__title">Install RocketSingh App</p>
           <p className="smart-app-banner__domain">{hostname}</p>
         </div>
 

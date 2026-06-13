@@ -190,6 +190,82 @@ html[data-smart-banner="visible"] body {
   padding-top: calc(4.75rem + env(safe-area-inset-top, 0px));
 }
 
+/* iPhone SE and other short screens (375×667) */
+@media (max-height: 667px) {
+  .side-nav-drawer .side-nav-drawer__header {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__logo {
+    height: 2.25rem !important;
+    width: 2.25rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__brand {
+    font-size: 1.125rem !important;
+    line-height: 1.5rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__close {
+    height: 2.25rem !important;
+    width: 2.25rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__nav {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__label {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__section {
+    margin-bottom: 0.5rem !important;
+    gap: 0 !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__section:last-of-type {
+    margin-bottom: 0 !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__link {
+    padding-top: 0.375rem !important;
+    padding-bottom: 0.375rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__footer {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    gap: 0.375rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__action {
+    padding-top: 0.375rem !important;
+    padding-bottom: 0.375rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__connect {
+    margin-bottom: 0.25rem !important;
+    padding-top: 0 !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__social-row {
+    gap: 0.5rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__social {
+    height: 2rem !important;
+    width: 2rem !important;
+  }
+
+  .side-nav-drawer .side-nav-drawer__social-icon {
+    height: 1rem !important;
+    width: 1rem !important;
+  }
+}
+
 /* OneSignal prompts above fixed bottom nav (z-50) */
 #onesignal-slidedown-container,
 #onesignal-bell-launcher,

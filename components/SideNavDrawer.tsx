@@ -71,7 +71,7 @@ const SideNavDrawer: React.FC<SideNavDrawerProps> = ({ isOpen, setIsOpen }) => {
   const toggleDrawer = () => setIsOpen((prev) => !prev);
 
   const linkClass = (active: boolean) =>
-    `flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium transition ${
+    `side-nav-drawer__link flex items-center gap-3 rounded-xl px-4 py-2.5 text-[15px] font-medium transition md:py-3 ${
       active
         ? 'bg-teal-100 text-teal-900'
         : 'text-gray-700 hover:bg-gray-50 hover:text-teal-800'
@@ -94,7 +94,7 @@ const SideNavDrawer: React.FC<SideNavDrawerProps> = ({ isOpen, setIsOpen }) => {
         className="hidden md:flex h-10 items-center justify-center gap-2 rounded-lg px-2 text-teal-800 hover:bg-teal-50 transition lg:px-3"
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
       >
-        {isOpen ? <X size={22} /> : <Menu size={22} />}
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
         <span className="text-[15px] font-medium">Menu</span>
       </button>
 
@@ -106,29 +106,33 @@ const SideNavDrawer: React.FC<SideNavDrawerProps> = ({ isOpen, setIsOpen }) => {
         aria-hidden={!isOpen}
       >
         <aside
-          className={`absolute top-0 right-0 flex h-full w-[min(85vw,320px)] flex-col bg-white shadow-2xl transition-transform duration-300 ${
+          className={`side-nav-drawer absolute top-0 right-0 flex h-dvh max-h-dvh w-[min(85vw,320px)] flex-col bg-white shadow-2xl transition-transform duration-300 ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           onClick={(e) => e.stopPropagation()}
           aria-label="Site menu"
         >
-          <div className="flex items-center justify-between border-b border-gray-100 px-4 py-4">
-            <BrandLogo onClick={closeDrawer} />
+          <div className="side-nav-drawer__header flex shrink-0 items-center justify-between border-b border-gray-100 px-4 py-3 md:py-4">
+            <BrandLogo
+              onClick={closeDrawer}
+              imageClassName="side-nav-drawer__logo h-10 w-10"
+              textClassName="side-nav-drawer__brand brand-name text-xl font-bold tracking-tight"
+            />
             <button
               type="button"
               onClick={closeDrawer}
-              className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-500 transition"
+              className="side-nav-drawer__close flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-500 transition"
               aria-label="Close menu"
             >
               <X size={22} />
             </button>
           </div>
 
-          <nav className="flex-1 overflow-y-auto px-4 py-4">
-            <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
+          <nav className="side-nav-drawer__nav min-h-0 flex-1 overflow-y-auto px-4 py-3 md:py-4">
+            <p className="side-nav-drawer__label mb-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-gray-400 md:mb-2">
               Main
             </p>
-            <div className="mb-4 flex flex-col gap-1">
+            <div className="side-nav-drawer__section mb-3 flex flex-col gap-0.5 md:mb-4 md:gap-1">
               {primaryNav.map(({ href, label, Icon, isActive }) => {
                 const active = isActive?.(pathname) ?? pathname === href;
                 return (
@@ -145,10 +149,10 @@ const SideNavDrawer: React.FC<SideNavDrawerProps> = ({ isOpen, setIsOpen }) => {
               })}
             </div>
 
-            <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
+            <p className="side-nav-drawer__label mb-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-gray-400 md:mb-2">
               More
             </p>
-            <div className="mb-4 flex flex-col gap-1">
+            <div className="side-nav-drawer__section flex flex-col gap-0.5 md:gap-1">
               {secondaryNav.map(({ href, label, Icon }) => {
                 const active = pathname === href || pathname.startsWith(`${href}/`);
                 return (
@@ -164,42 +168,40 @@ const SideNavDrawer: React.FC<SideNavDrawerProps> = ({ isOpen, setIsOpen }) => {
                 );
               })}
             </div>
-
-            <div className="space-y-2 pt-2">
-              <Link
-                href="/career"
-                onClick={closeDrawer}
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-teal-900 px-4 py-2.5 text-[15px] font-medium text-teal-900 hover:bg-teal-50 transition"
-              >
-                <Briefcase size={18} className="text-teal-700" />
-                Career
-              </Link>
-              <Link
-                href="/book"
-                onClick={closeDrawer}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-teal-900 px-4 py-2.5 text-[15px] font-semibold text-white hover:bg-teal-800 transition"
-              >
-                <BookOpen size={18} />
-                Book Now
-              </Link>
-            </div>
           </nav>
 
-          <div className="border-t border-gray-100 px-4 py-4">
-            <p className="mb-3 text-center text-xs font-medium text-gray-500">
+          <div className="side-nav-drawer__footer flex shrink-0 flex-col gap-2 border-t border-gray-100 px-4 py-3 md:py-4">
+            <Link
+              href="/career"
+              onClick={closeDrawer}
+              className="side-nav-drawer__action flex w-full items-center justify-center gap-2 rounded-xl border border-teal-900 px-4 py-2.5 text-[15px] font-medium text-teal-900 hover:bg-teal-50 transition"
+            >
+              <Briefcase size={18} className="text-teal-700" />
+              Career
+            </Link>
+            <Link
+              href="/book"
+              onClick={closeDrawer}
+              className="side-nav-drawer__action flex w-full items-center justify-center gap-2 rounded-xl bg-teal-900 px-4 py-2.5 text-[15px] font-semibold text-white hover:bg-teal-800 transition"
+            >
+              <BookOpen size={18} />
+              Book Now
+            </Link>
+
+            <p className="side-nav-drawer__connect mb-2 pt-1 text-center text-xs font-medium text-gray-500 md:mb-3 md:pt-2">
               Connect With Us
             </p>
-            <div className="flex justify-center gap-3">
+            <div className="side-nav-drawer__social-row flex justify-center gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
+                  className="side-nav-drawer__social flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
                   aria-label={social.label}
                 >
-                  <img src={social.icon} alt="" className="h-5 w-5" />
+                  <img src={social.icon} alt="" className="side-nav-drawer__social-icon h-5 w-5" />
                 </a>
               ))}
             </div>
