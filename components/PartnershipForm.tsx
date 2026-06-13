@@ -315,14 +315,6 @@ export default function PartnershipForm() {
 
   return (
     <div className="w-full bg-white px-5 py-8 sm:px-8 sm:py-10">
-      <header className="mb-8 text-center">
-        <h2 className="text-[22px] font-bold text-gray-900 sm:text-[26px]">
-          RocketSingh — Become a Partner
-        </h2>
-        <p className="mt-2 text-[15px] text-gray-600">
-          Partnership opportunities across India
-        </p>
-      </header>
 
       <form
         id={formId}
