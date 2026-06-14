@@ -10,6 +10,20 @@ export type ServiceCategory = {
   services: CatalogService[];
 };
 
+export function getAllServices(): (CatalogService & { category: string })[] {
+  return serviceCategories.flatMap((category) =>
+    category.services.map((service) => ({ ...service, category: category.title }))
+  );
+}
+
+export function getServiceBySlug(slug: string): (CatalogService & { category: string }) | undefined {
+  return getAllServices().find((service) => service.slug === slug);
+}
+
+export function getAllServiceSlugs(): string[] {
+  return getAllServices().map((service) => service.slug);
+}
+
 export const serviceCategories: ServiceCategory[] = [
   {
     title: "Home Services",
