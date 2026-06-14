@@ -26,7 +26,7 @@ function buildDefaultDetail(
   const images = getScopeImages(service.slug);
 
   return {
-    heroTitle: `${name} — Chennai & Across India`,
+    heroTitle: `${name} — Chennai`,
     heroDescription: service.desc,
     bookLabel: `Book ${name}`,
     introTitle: `Trusted ${name} with RocketSingh`,
@@ -77,7 +77,7 @@ function buildDefaultDetail(
         id: 4,
         question: "Which cities do you serve?",
         answer:
-          "RocketSingh is headquartered in Chennai with growing coverage across major Indian cities including Bengaluru and Mumbai.",
+          "RocketSingh provides home services in Chennai and nearby areas.",
       },
       {
         id: 5,
