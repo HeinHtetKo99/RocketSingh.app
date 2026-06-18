@@ -75,7 +75,7 @@ const cookiePolicy = () => {
           <div>
             <h2 className="text-2xl font-semibold text-teal-800 mb-2">Contact Us</h2>
             <p className="about leading-relaxed mb-1">Email: <a href="mailto:support@rocketsingh.app" className="hover:underline">support@rocketsingh.app</a></p>
-            <p className="about leading-relaxed mb-1">Phone: +91-XXXXXXXXXX</p>
+            <p className="about leading-relaxed mb-1">Phone: +91-8190074189</p>
             <p className="about leading-relaxed">Address: [RocketSingh Address], Chennai, India</p>
           </div>
         </section>

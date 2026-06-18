@@ -10,7 +10,7 @@ RocketSingh is an on-demand home services platform for Chennai, India. It is the
 Live website: rocketsingh.app
 Planned production domain: rocketsingh.app
 Support email: support@rocketsingh.app
-Phone: +91 98511 52774
+Phone: +91-8190074189
 WhatsApp: b.broadpress.org/rocketsingh
 
 
