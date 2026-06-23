@@ -29,6 +29,22 @@ type ServicePageLayoutProps = {
   faqs: ServiceFaq[];
 };
 
+function BreadcrumbChevron() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="mx-1.5 h-3.5 w-3.5 shrink-0 text-white/70 sm:h-4 sm:w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
+
 export default function ServicePageLayout({
   serviceName,
   heroImage,
@@ -56,11 +72,21 @@ export default function ServicePageLayout({
           className="absolute inset-0 z-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 z-10 bg-black/60" />
-        <div className="relative z-20 w-full max-w-4xl px-4 py-8 text-center sm:px-6 sm:py-12 lg:py-14">
-          <div className="mb-3 flex w-full items-center justify-center text-xs text-white/90 sm:mb-4 sm:text-sm">
-            Home &gt; Services &gt;{" "}
-            <span className="ml-1 font-semibold">{serviceName}</span>
-          </div>
+        <div className="relative z-20 mx-auto w-full max-w-6xl px-4 py-8 text-center sm:px-6 sm:py-12 lg:py-14">
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-3 flex w-full flex-wrap items-center justify-center text-xs text-white/90 sm:mb-4 sm:text-sm"
+          >
+            <Link href="/" className="transition hover:text-white">
+              Home
+            </Link>
+            <BreadcrumbChevron />
+            <Link href="/services" className="transition hover:text-white">
+              Services
+            </Link>
+            <BreadcrumbChevron />
+            <span className="font-semibold text-white">{serviceName}</span>
+          </nav>
           <h1 className="mb-3 text-2xl font-bold leading-tight text-white sm:mb-4 sm:text-4xl lg:text-[52px]">
             {heroTitle}
           </h1>
@@ -75,11 +101,11 @@ export default function ServicePageLayout({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-4xl px-4 pt-6 pb-6 text-center sm:px-6 sm:pt-8">
-        <h2 className="mb-4 text-2xl font-bold text-teal-900 sm:text-3xl">
+      <section className="mx-auto w-full max-w-6xl px-4 pt-6 pb-6 sm:px-6 sm:pt-8">
+        <h2 className="mb-4 text-center text-2xl font-bold text-teal-900 sm:text-3xl">
           {introTitle}
         </h2>
-        <div className="space-y-4 text-left sm:text-center">
+        <div className="mx-auto max-w-3xl space-y-4 text-center">
           {introParagraphs.map((paragraph, index) => (
             <p
               key={index}
@@ -100,17 +126,17 @@ export default function ServicePageLayout({
             {scopeItems.map((item) => (
               <div
                 key={item.title}
-                className="flex flex-col items-center rounded-xl border border-gray-100 bg-white p-4 text-center shadow-md sm:p-5"
+                className="flex h-full flex-col rounded-xl border border-gray-100 bg-white p-4 text-center shadow-md sm:p-5"
               >
                 <img
                   src={item.image}
                   alt={item.imageAlt}
-                  className="mb-3 h-40 w-full rounded-lg object-cover sm:mb-4 sm:h-48"
+                  className="mb-3 h-40 w-full shrink-0 rounded-lg object-cover sm:mb-4 sm:h-48"
                 />
                 <h3 className="mb-2 text-lg font-semibold sm:text-xl">
                   {item.title}
                 </h3>
-                <p className="text-sm text-gray-600 sm:text-base">
+                <p className="flex-1 text-sm text-gray-600 sm:text-base">
                   {item.description}
                 </p>
               </div>
@@ -119,7 +145,7 @@ export default function ServicePageLayout({
         </section>
       )}
 
-      <section className="mx-auto w-full max-w-4xl px-4 pt-2 pb-4 sm:px-6">
+      <section className="mx-auto w-full max-w-6xl px-4 pt-2 pb-8 sm:px-6">
         <h2 className="mb-5 text-center text-2xl font-bold text-teal-800 sm:mb-6 sm:text-3xl">
           Frequently Asked Questions
         </h2>
