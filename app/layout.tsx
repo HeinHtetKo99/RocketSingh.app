@@ -41,8 +41,8 @@ export default function RootLayout({ children }:Readonly<{
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-        <link rel="apple-touch-icon" href="/logo.svg" />
+        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="manifest" href="/manifest.json" />
 
         <OneSignalInit />

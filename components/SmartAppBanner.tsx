@@ -66,7 +66,7 @@ export default function SmartAppBanner() {
     >
       <div className="smart-app-banner__card">
         <Image
-          src="/logo.svg"
+          src="/logo.png"
           alt=""
           width={40}
           height={40}
