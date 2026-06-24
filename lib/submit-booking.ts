@@ -1,77 +1,19 @@
 import { NextResponse } from "next/server";
-import {
-  createRecordInTable,
-  getRecordAttachments,
-  listAirtableTableSummaries,
-  resolveBookingPhotoField,
-  resolveServiceRecordIds,
-  setAttachmentUrls,
-  uploadAttachmentToField,
-} from "@/lib/airtable";
-import { formatAirtableEnvError, getAirtableEnv } from "@/lib/airtable-env";
-import {
-  assertStagedAttachmentAvailable,
-  publishFilesForAirtable,
-} from "@/lib/attachment-staging";
-import { BOOKING_PHOTO_FIELD } from "@/lib/book-form-options";
+
 import { bookingScheduleValidationError } from "@/lib/booking-datetime";
 import { emailValidationError } from "@/lib/form-validation";
-
-/**
- * RocketSingh base (appcaAplIBD3UYYKu) → **Booking** table (form view: RocketSingh).
- * Field names match the Airtable schema exactly (see Meta API / Booking table).
- * Select Services links to rows in the **Services** table by record id.
- */
+import {
+  formatServiceList,
+  unmatchedServiceNames,
+} from "@/lib/supabase-services";
+import {
+  joinStoredUrls,
+  uploadFilesToStorage,
+} from "@/lib/supabase-storage";
+import { formatSupabaseEnvError, getSupabaseEnv } from "@/lib/supabase-env";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 const DEFAULT_STATUS = "New / Open";
-
-function readBookingsTableName(): string {
-  const nameRaw = process.env["AIRTABLE_BOOKINGS_TABLE_NAME"];
-  if (typeof nameRaw === "string") {
-    const v = nameRaw.trim().replace(/^['"]|['"]$/g, "");
-    if (v) return v;
-  }
-  return "Booking";
-}
-
-function readBookingsTableIdFallback(): string | null {
-  const raw = process.env["AIRTABLE_BOOKINGS_TABLE_ID"];
-  if (typeof raw !== "string") return null;
-  const id = raw.trim().replace(/^['"]|['"]$/g, "");
-  return /^tbl[a-zA-Z0-9]+$/i.test(id) ? id : null;
-}
-
-function resolveTableIdByName(
-  tables: { id: string; name: string }[],
-  name: string,
-): { id: string } | null {
-  const exact = tables.find((t) => t.name === name);
-  if (exact) return { id: exact.id };
-  const lower = name.toLowerCase();
-  const folded = tables.find((t) => t.name.toLowerCase() === lower);
-  if (folded) return { id: folded.id };
-  return null;
-}
-
-function formatTableList(tables: { id: string; name: string }[]): string {
-  return tables.map((t) => `"${t.name}"`).join(", ") || "(none)";
-}
-
-function wrongBaseHint(
-  tables: { id: string; name: string }[],
-  configuredName: string,
-  configuredBaseId: string,
-): string {
-  const list = formatTableList(tables);
-  const tableIdHint = readBookingsTableIdFallback()
-    ? ""
-    : ` Or set AIRTABLE_BOOKINGS_TABLE_ID to the tbl… id from the URL when the "${configuredName}" tab is open.`;
-  return (
-    `Tables visible to the API for base ${configuredBaseId}: ${list}. ` +
-    `Could not use "${configuredName}". ` +
-    `Ensure AIRTABLE_BASE_ID matches appcaAplIBD3UYYKu from your form URL.${tableIdHint}`
-  );
-}
 
 export type BookingPayload = {
   fullName: string;
@@ -148,182 +90,59 @@ function buildDeadlineIso(deadlineDate: string, deadlineTime: string): string {
   return `${deadlineDate}T${time}:00`;
 }
 
-async function buildAirtableFields(
+async function createBookingRecord(
   payload: BookingPayload,
-): Promise<{ fields: Record<string, unknown>; warnings: string[] }> {
+  photoUrls: string[],
+): Promise<{ id: string; warnings: string[] } | { error: string }> {
   const warnings: string[] = [];
   const deadline = buildDeadlineIso(payload.deadlineDate, payload.deadlineTime);
 
-  const { ids: serviceIds, unmatched } = await resolveServiceRecordIds(
-    payload.services,
-  );
+  const unmatched = await unmatchedServiceNames(payload.services);
   if (unmatched.length > 0) {
     warnings.push(
       `These services were not found in the Services table: ${unmatched.join(", ")}.`,
     );
   }
 
-  const fields: Record<string, unknown> = {
-    "Full name": payload.fullName,
-    Phone: payload.phone,
-    City: payload.city,
-    Area: payload.area,
-    Street: payload.street || undefined,
-    Zip: payload.zip || undefined,
-    "Nearest Landmark": payload.landmark || undefined,
-    "Property Type": payload.propertyType,
-    "Starting Date": payload.startDate,
-    Deadline: deadline || undefined,
-    "Select Shift": payload.shift,
-    Budget: payload.budget,
-    Priority: payload.priority,
-    "Work Description": payload.workDescription || undefined,
-    "How did you know about us?": payload.referralSource || undefined,
-    Status: DEFAULT_STATUS,
+  const row: Record<string, unknown> = {
+    full_name: payload.fullName,
+    phone: payload.phone,
+    city: payload.city || "Chennai",
+    area: [payload.area],
+    property_type: payload.propertyType,
+    starting_date: payload.startDate,
+    select_shift: payload.shift,
+    budget: payload.budget,
+    priority: payload.priority,
+    status: DEFAULT_STATUS,
+    select_services: formatServiceList(payload.services),
   };
 
-  if (payload.email) fields["eMail"] = payload.email;
-  if (serviceIds.length > 0) fields["Select Services"] = serviceIds;
-
-  return {
-    fields: Object.fromEntries(
-      Object.entries(fields).filter(([, v]) => v !== undefined && v !== ""),
-    ),
-    warnings,
-  };
-}
-
-async function tryCreate(
-  tablePathSegment: string,
-  fields: Record<string, unknown>,
-): Promise<{ ok: true; id: string } | { error: string }> {
-  try {
-    const id = await createRecordInTable(tablePathSegment, fields);
-    return { ok: true, id };
-  } catch (e) {
-    const message =
-      e instanceof Error ? e.message : "Submission failed. Please try again.";
-    return { error: message };
+  if (payload.email) row.email = payload.email;
+  if (payload.street) row.street = payload.street;
+  if (payload.zip) row.zip = payload.zip;
+  if (payload.landmark) row.nearest_landmark = payload.landmark;
+  if (deadline) row.deadline = deadline;
+  if (payload.workDescription) row.work_description = payload.workDescription;
+  if (payload.referralSource) {
+    row.how_did_you_know_about_us = payload.referralSource;
   }
-}
-
-async function createBookingRecord(
-  configuredName: string,
-  fields: Record<string, unknown>,
-): Promise<{ ok: true; id: string } | { error: string }> {
-  const env = getAirtableEnv();
-  const configuredBaseId = env.ok ? env.config.baseId : "";
-
-  let tables: { id: string; name: string }[] = [];
-  try {
-    tables = await listAirtableTableSummaries();
-  } catch (metaErr) {
-    const metaMsg =
-      metaErr instanceof Error ? metaErr.message : String(metaErr);
-    const tableId = readBookingsTableIdFallback();
-    if (tableId) {
-      const r = await tryCreate(tableId, fields);
-      if ("ok" in r) return r;
-    }
-    const byName = await tryCreate(configuredName, fields);
-    if ("ok" in byName) return byName;
-    return {
-      error:
-        `Could not load Airtable schema (${metaMsg}). ${byName.error} ` +
-        "Ensure the token has schema.bases:read and data.records:write.",
-    };
+  if (photoUrls.length > 0) {
+    row.add_photos_picture = joinStoredUrls(photoUrls);
   }
 
-  const resolved = resolveTableIdByName(tables, configuredName);
-  if (resolved) {
-    const r = await tryCreate(resolved.id, fields);
-    if ("ok" in r) return r;
-    return {
-      error: `${r.error} ${wrongBaseHint(tables, configuredName, configuredBaseId)}`,
-    };
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from("booking")
+    .insert(row)
+    .select("bookingid")
+    .single();
+
+  if (error) {
+    return { error: error.message };
   }
 
-  const tableId = readBookingsTableIdFallback();
-  if (tableId) {
-    const r = await tryCreate(tableId, fields);
-    if ("ok" in r) return r;
-    return {
-      error: `${r.error} ${wrongBaseHint(tables, configuredName, configuredBaseId)}`,
-    };
-  }
-
-  const byName = await tryCreate(configuredName, fields);
-  if ("ok" in byName) return byName;
-
-  return {
-    error: `${byName.error} ${wrongBaseHint(tables, configuredName, configuredBaseId)}`,
-  };
-}
-
-function readBookingsTablePath(
-  configuredName: string,
-  tables: { id: string; name: string }[],
-): string {
-  const tableId = readBookingsTableIdFallback();
-  if (tableId) return tableId;
-  const resolved = resolveTableIdByName(tables, configuredName);
-  if (resolved) return resolved.id;
-  return configuredName;
-}
-
-async function uploadPhotoViaUrl(
-  request: Request,
-  recordId: string,
-  tablePath: string,
-  file: File,
-): Promise<void> {
-  const [url] = await publishFilesForAirtable([file], request);
-  assertStagedAttachmentAvailable(url);
-  let existing: Awaited<ReturnType<typeof getRecordAttachments>> = [];
-  try {
-    existing = await getRecordAttachments(
-      recordId,
-      BOOKING_PHOTO_FIELD,
-      tablePath,
-    );
-  } catch {
-    /* still try URL-only upload */
-  }
-  await setAttachmentUrls(
-    recordId,
-    BOOKING_PHOTO_FIELD,
-    [url],
-    existing,
-    tablePath,
-  );
-}
-
-async function uploadPhotos(
-  request: Request,
-  recordId: string,
-  tablePath: string,
-  photos: File[],
-): Promise<string[]> {
-  const photoField = await resolveBookingPhotoField(tablePath);
-  const fieldKey = photoField?.id ?? photoField?.name ?? BOOKING_PHOTO_FIELD;
-  const failures: string[] = [];
-
-  for (const file of photos) {
-    try {
-      try {
-        await uploadAttachmentToField(recordId, fieldKey, file);
-        continue;
-      } catch {
-        /* fall back to public URL attachment */
-      }
-      await uploadPhotoViaUrl(request, recordId, tablePath, file);
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : "Upload failed";
-      failures.push(`${file.name}: ${msg}`);
-    }
-  }
-
-  return failures;
+  return { id: String(data.bookingid), warnings };
 }
 
 async function parseMultipart(request: Request): Promise<BookingPayload | null> {
@@ -415,10 +234,10 @@ function validatePayload(payload: BookingPayload): string | null {
 export async function handleBookingSubmission(
   request: Request,
 ): Promise<NextResponse> {
-  const env = getAirtableEnv();
+  const env = getSupabaseEnv();
   if (!env.ok) {
     return NextResponse.json(
-      { error: formatAirtableEnvError(env.missing) },
+      { error: formatSupabaseEnvError(env.missing) },
       { status: 500 },
     );
   }
@@ -442,34 +261,25 @@ export async function handleBookingSubmission(
   const validationMsg = validatePayload(payload);
   if (validationMsg) return validationError(validationMsg);
 
-  const { fields, warnings: fieldWarnings } = await buildAirtableFields(payload);
-  const configuredName = readBookingsTableName();
-  const result = await createBookingRecord(configuredName, fields);
+  const warnings: string[] = [];
+  let photoUrls: string[] = [];
+
+  if (payload.photos.length > 0) {
+    const uploaded = await uploadFilesToStorage("booking", payload.photos);
+    photoUrls = uploaded.urls;
+    if (uploaded.failures.length > 0) {
+      warnings.push(
+        `These photos could not be uploaded: ${uploaded.failures.join(", ")}.`,
+      );
+    }
+  }
+
+  const result = await createBookingRecord(payload, photoUrls);
   if ("error" in result) {
     return NextResponse.json({ error: result.error }, { status: 502 });
   }
 
-  const warnings = [...fieldWarnings];
-  if (payload.photos.length > 0) {
-    let tables: { id: string; name: string }[] = [];
-    try {
-      tables = await listAirtableTableSummaries();
-    } catch {
-      /* use configured name / table id fallback */
-    }
-    const tablePath = readBookingsTablePath(configuredName, tables);
-    const failures = await uploadPhotos(
-      request,
-      result.id,
-      tablePath,
-      payload.photos,
-    );
-    if (failures.length > 0) {
-      warnings.push(
-        `Booking saved, but these photos could not be uploaded: ${failures.join(", ")}.`,
-      );
-    }
-  }
+  warnings.push(...result.warnings);
 
   return NextResponse.json({
     ok: true as const,

@@ -1,6 +1,6 @@
 Project Documentation — RocketSingh
 
-Last updated: June 9, 2026
+Last updated: June 24, 2026
 
 
 About the Project
@@ -27,27 +27,32 @@ Firebase is not set up yet. It is planned for the mobile app.
 OneSignal is not set up yet. It is planned for push notifications on the app.
 
 
-Airtable
+Supabase
 
-Airtable is the backend for all forms on the website.
+Supabase (PostgreSQL + Storage) is the backend for all form submissions on the website.
 
-Base link: airtable.com/appcaAplIBD3UYYKu
+Required environment variables (server-side only — never expose the service role key to the browser):
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
 
-The Airtable personal access token is stored in environment variables on the developer machine and on Vercel for production. It should never be shared publicly or committed to Git.
+Database tables:
+- bookings + booking_services — Book a Service form
+- career_applications + career_services — Career / Join applications
+- partnership_applications + partnership_services — Partner registration
+- contact_submissions — Contact form
+- feedback_submissions — Customer feedback
+- services — service name lookup for linked forms
+- form_attachments — metadata for uploaded files
 
-Tables used:
-- Booking — for Book a Service form
-- workForce — for Career / Join applications
-- Partnership — for partner registration
-- Contact — for contact form
-- Feedback — for customer feedback
-- Services — linked from the booking form
+Storage buckets: booking-photos, career-documents, partnership-documents, feedback-headshots
+
+Tables already exist in Supabase — no SQL migrations or data import required. See supabase/SCHEMA.md for expected table/column names. Verify connectivity with: npm run verify:supabase
 
 
 Integrations
 
 Currently working:
-- Airtable for all form submissions
+- Supabase for all form submissions
 - Google Analytics
 - Google Maps on the contact page
 - WhatsApp chat link
@@ -66,7 +71,7 @@ What Works on the Website
 - Services page with 7 categories and 30 services, matching tackles.pro
 - 36 cleaning service detail pages
 - Blog, FAQ, Gallery, Team, Testimonials, and legal pages
-- All forms save data to Airtable
+- All forms save data to Supabase
 - File uploads work on Book, Career, Partnership, and Feedback forms
 
 
@@ -93,7 +98,9 @@ Backend:
 
 How to Run Locally
 
-Install dependencies, add the Airtable token to your local environment file, start the development server, and open localhost port 3000 in the browser. Full setup steps are in the project environment example file.
+Install dependencies, copy .env.example to .env.local and add Supabase credentials, then npm run verify:supabase. Start the dev server with npm run dev and open localhost port 3000. No database migrations or Airtable data import are needed — tables already live in Supabase.
+
+Production (Vercel): add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to Environment Variables, remove old AIRTABLE_* variables, redeploy, then smoke-test each form on the live site.
 
 
 Recent Work — June 9, 2026
