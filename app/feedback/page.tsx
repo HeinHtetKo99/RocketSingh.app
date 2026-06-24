@@ -1,5 +1,5 @@
 import FormPageLayout from "../../components/FormPageLayout";
-import FeedbackForm from "./FeedbackForm";
+import FeedbackForm from "../../components/FeedbackForm";
 
 export const metadata = {
   title: "Feedback | RocketSingh",

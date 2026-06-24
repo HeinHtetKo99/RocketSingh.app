@@ -1,5 +1,5 @@
 import FormPageLayout from "../../components/FormPageLayout";
-import CareerForm from "./CareerForm";
+import CareerForm from "../../components/CareerForm";
 
 export const metadata = {
   title: "Career | RocketSingh",

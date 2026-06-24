@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import ServicePageLayout from "./ServicePageLayout";
+import ServicePageLayout from "../../../components/ServicePageLayout";
 import { getAllServiceDetailSlugs, getServiceDetail } from "../../data/serviceDetails";
 
 type PageProps = {

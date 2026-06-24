@@ -277,7 +277,7 @@ export default function Home() {
 
       {/* FLOATING CONTACT */}
       {/* <div className={`fixed right-4 bottom-20 flex flex-col items-center gap-3 z-50 transition-transform duration-300 ${isScrolled ? "-translate-y-3" : "translate-y-0"}`}>
-        <a href="https://b.broadpress.org/rocketsingh" target="_blank" rel="noopener noreferrer" className="w-11 h-11 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+        <a href="https://wa.me/918190074189" target="_blank" rel="noopener noreferrer" className="w-11 h-11 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
           <img src="/icons/whatsapp.svg" alt="WhatsApp" className="w-6 h-6" />
         </a>
         <a href="tel:+918190074189" className="w-11 h-11 bg-[#0E4541] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">

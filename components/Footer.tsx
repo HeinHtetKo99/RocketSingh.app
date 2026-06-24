@@ -168,8 +168,8 @@ const Footer = () => {
             <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
               <img src={`/icons/trello.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
             </a>
-            <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
-              <img src={`/icons/discord.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
+            <a href="https://t.ly/hEgTt" target="_blank" rel="noopener noreferrer" className="flex items-center hover:opacity-60 transition hover:scale-110">
+              <img src={`/icons/powerpoint.svg`} className="h-5 w-5 sm:h-6 sm:w-6 cursor-pointer" />
             </a>
             <a href="#" className="flex items-center hover:opacity-60 transition hover:scale-110">
               <img src={`/icons/viber.svg`} className="h-[22px] w-[22px] sm:h-[26px] sm:w-[26px] cursor-pointer" />

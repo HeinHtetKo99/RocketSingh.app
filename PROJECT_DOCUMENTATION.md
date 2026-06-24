@@ -11,7 +11,7 @@ Live website: rocketsingh.app
 Planned production domain: rocketsingh.app
 Support email: support@rocketsingh.app
 Phone: +91-8190074189
-WhatsApp: b.broadpress.org/rocketsingh
+WhatsApp: https://wa.me/918190074189
 
 
 Tech Stack

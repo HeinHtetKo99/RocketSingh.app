@@ -1,5 +1,5 @@
 import FormPageLayout from "../../components/FormPageLayout";
-import PartnershipForm from "./PartnershipForm";
+import PartnershipForm from "../../components/PartnershipForm";
 
 export const metadata = {
   title: "Partnership | RocketSingh",
