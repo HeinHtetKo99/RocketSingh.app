@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import ServiceCard from "../components/ServiceCard";
+import { homeAboutSections, brandAbout } from "./data/brandContent";
 
 const displayLocation = "Chennai, India";
 
@@ -15,24 +16,7 @@ const heroContent = {
   subtitle: "AI Powered Services",
 };
 
-const sections = {
-  about: {
-    title: "About RocketSingh",
-    desc: "RocketSingh is a leading professional cleaning company in Chennai, India. Any home, office, or commercial cleaning — whether deep cleaning, sanitization, carpet care, or post-construction cleanup — RocketSingh is there for you.",
-  },
-  mission: {
-    title: "Our Mission",
-    desc: "We want to provide every cleaning and facility care service under one trusted platform so you don't have to search different places for different needs.",
-  },
-  goals: {
-    title: "Our Goals",
-    desc: "RocketSingh focuses on providing the best service possible to make clients' lives convenient and comfortable. Deep cleaning, office sanitization, and regular maintenance are our responsibility.",
-  },
-  vision: {
-    title: "Our Vision",
-    desc: "To redefine home and commercial cleaning by creating a reliable, modern, and accessible service network that brings convenience and quality workmanship to every customer's doorstep in India.",
-  },
-};
+const sections = homeAboutSections;
 
 const expertServices = [
   {
@@ -107,7 +91,7 @@ export default function Home() {
             </h1>
             <p className="text-base sm:text-lg text-teal-900 font-medium">{heroContent.subtitle}</p>
             <p className="text-sm sm:text-base text-gray-900 max-w-md">
-            ROCKETSINGH is created as an on-demand hyperlocal service platform that connects home owners with skilled professionals.
+              {brandAbout.short}
             </p>
             <div className="hidden md:flex flex-wrap items-center gap-3 pt-3">
               <Link href="/book" className="bg-[#0E4541] text-white font-semibold px-6 sm:px-8 py-2.5 rounded-full shadow-lg hover:bg-teal-900 transition-all duration-300 animate-pulse-soft">
@@ -194,8 +178,7 @@ export default function Home() {
         <div className="text-center mb-14">
           <h2 className="text-4xl sm:text-5xl font-extrabold text-teal-900 mb-4 tracking-wide">About Us</h2>
           <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
-            Deep cleaning, AC sanitization, and post-construction cleanup require not only effort but skill.
-            That&apos;s where our team comes in — to take the burden off your shoulders.
+            {brandAbout.intro}
           </p>
         </div>
         <div id="back-to-top-trigger" aria-hidden="true" className="h-0 w-full" />
@@ -215,7 +198,7 @@ export default function Home() {
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-[2200ms] ease-out ${
-                    activeSection === key ? "max-h-52 opacity-100 mt-3" : "max-h-0 opacity-0"
+                    activeSection === key ? "max-h-64 opacity-100 mt-3" : "max-h-0 opacity-0"
                   }`}
                 >
                   <div className="ml-4 border-l-4 border-teal-600 pl-6 bg-white rounded-r-2xl shadow-sm py-5 px-6">

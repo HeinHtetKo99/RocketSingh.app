@@ -1,5 +1,6 @@
 'use client'
 import Ribbon from '../../components/Ribbon';
+import { brandAbout, brandMission, brandVision, vmgoGoals, vmgoObjectives } from '../data/brandContent';
 
 const sectionImageClass = 'h-40 w-40 shrink-0 object-contain';
 
@@ -59,12 +60,10 @@ export default function Vmgo() {
           <div className="p-8 md:p-16 card space-y-4 max-w-3xl rounded-xl">
             <h2 className="text-3xl font-bold text">Vision</h2>
             <p className=" text-md leading-relaxed mb-4">
-              Our vision at RocketSingh is to create a future where every individual has access to opportunities that match their skills and aspirations.            </p>
+              {brandVision}
+            </p>
             <p className=" text-md leading-relaxed">
-              We envision a world where people searching for any service can easily connect
-              with skilled professionals rather than hiring hefty commission from any service
-              marketplace, and where an individual can have his/her digital profile showcasing
-              their expertise.
+              {brandAbout.expansion}
             </p>
           </div>
         </section>
@@ -74,7 +73,11 @@ export default function Vmgo() {
           <div className="p-8 md:p-16 bg-teal-700 text-white space-y-4 max-w-3xl rounded-xl ">
             <h2 className="text-3xl font-bold ">Mission</h2>
             <p className="text-md leading-relaxed ">
-              At RocketSingh, our mission is to revolutionize the way work is connected with workers. We strive to provide a seamless platform that empowers individuals and businesses to find the perfect match for their needs, fostering opportunities for growth, collaboration, and success.            </p>
+              {brandMission}
+            </p>
+            <p className="text-md leading-relaxed pt-2 opacity-95">
+              {brandAbout.intro}
+            </p>
           </div>
           <div className="hidden md:flex items-center mb-6">
               <img src="/vmgo/mission.svg" alt="Mission illustration" className={sectionImageClass} />
@@ -88,12 +91,7 @@ export default function Vmgo() {
           </div>
           <div className="p-8 md:p-16 space-y-4 card rounded-xl">
             <h2 className="text-3xl font-bold text">Our Goals</h2>
-            {[
-              "Enable transparent and efficient interactions between professionals and businesses through our platform's tools and features.",
-              "Ensure trust through robust verification processes and accurate listings for all users.",
-              "Provide equal access to opportunities for professionals from all backgrounds.",
-              "Continuously enhance our platform with new technologies to deliver the best user experience."
-            ].map((goal, index) => (
+            {vmgoGoals.map((goal, index) => (
               <div key={index} className="flex  items-center gap-3 pl-4">
                 <ul className='list-disc'><li>{goal}</li></ul>
               </div>
@@ -105,12 +103,7 @@ export default function Vmgo() {
         <section id="objectives" className="flex justify-between gap-24 mb-12 py-8 max-w-5xl mx-auto">
           <div className="p-8 md:p-16 space-y-4 text-white bg-teal-700 max-w-3xl rounded-xl">
             <h2 className="text-3xl font-bold">Objectives</h2>
-            {[
-              "Expand our reach to new markets and demographics, ensuring that individuals and businesses from all backgrounds have access to our platform.",
-              "Continuously improve the user experience on our platform, making it easier and more intuitive for users to find what they're looking for.",
-              "Foster a strong community of professionals and businesses",
-              "Maintain high standards of security and privacy"
-            ].map((objective, index) => (
+            {vmgoObjectives.map((objective, index) => (
               <div key={index} className="flex items-center gap-3 pl-4">
                 <ul className='list-disc'><li>{objective}</li></ul>
               </div>

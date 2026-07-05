@@ -1,25 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { aboutSections, brandAbout, brandTagline } from "../data/brandContent";
 
-const sections = {
-  about: {
-    title: "About RocketSingh",
-    desc: "RocketSingh is an A-grade professional cleaning company delivering solutions for home cleaning, office sanitization, carpet care, AC cleaning, and post-construction cleanup with consistent quality and dependable service standards.",
-  },
-  mission: {
-    title: "Our Mission",
-    desc: "Our mission is to offer complete cleaning and facility care services under one trusted platform, eliminating the need to search multiple providers for different household and commercial requirements.",
-  },
-  goals: {
-    title: "Our Goals",
-    desc: "We aim to simplify everyday maintenance by delivering efficient deep cleaning, sanitization, and facility care that enhance comfort, hygiene, and long-term value for every client across India.",
-  },
-  vision: {
-    title: "Our Vision",
-    desc: "Our vision is to build a trusted cleaning brand recognized for professionalism, accessibility, and service excellence through long-term client relationships and consistent work quality.",
-  },
-};
+const sections = aboutSections;
 
 const values = [
   {
@@ -69,8 +53,10 @@ export default function About() {
         <div className="text-center mb-14">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-teal-900 mb-4 tracking-wide">About Us</h1>
           <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
-            Deep cleaning, AC sanitization, and post-construction cleanup require not only effort but skill.
-            That&apos;s where our team comes in — to take the burden off your shoulders.
+            {brandAbout.intro}
+          </p>
+          <p className="text-teal-800 max-w-3xl mx-auto text-base font-medium mt-4">
+            {brandTagline}
           </p>
         </div>
 
@@ -109,9 +95,9 @@ export default function About() {
         </div>
 
         <div className="max-w-6xl mx-auto mt-24 text-center">
-          <h2 className="text-3xl font-bold text-teal-800 mb-6">Internationally Trusted Standards</h2>
+          <h2 className="text-3xl font-bold text-teal-800 mb-6">What We Stand For</h2>
           <p className="text-gray-700 max-w-2xl mx-auto mb-12">
-            RocketSingh follows globally recognized standards to ensure safety, responsibility, and professionalism in every service we deliver.
+            {brandAbout.expansion}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((v) => (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Wrench, BookOpen, HelpCircle, Handshake } from "lucide-react";
 import BrandLogo from "./BrandLogo";
+import { brandAbout, brandTagline } from "../app/data/brandContent";
 
 const mobileNavItems = [
   { label: "Home", href: "/", Icon: Home, isActive: (path: string) => path === "/" },
@@ -59,14 +60,13 @@ const Footer = () => {
             </div>
 
             <p className="text-[15px] leading-relaxed mb-4">
-              RocketSingh is more than just a name. It represents a mindset, a work ethic, and a commitment to serving local communities with professionalism and reliability.
+              {brandAbout.hero}
             </p>
             <p className="text-[15px] leading-relaxed mb-4">
-              Traditionally, a"RocketSingh" is someone who is dependable, punctual, highly skilled, dedicated to his work, and always willing to help people around him. 
+              {brandAbout.platform}
             </p>
-            
-            <p className="text-[15px] leading-relaxed mb-4">
-              Inspired by these values, ROCKETSINGH is created as an on-demand hyperlocal service platform that connects home owners with skilled professionals for a wide range of household and commercial services.
+            <p className="text-[15px] leading-relaxed mb-4 font-medium text-teal-800">
+              {brandTagline}
             </p>
           
           </div>
