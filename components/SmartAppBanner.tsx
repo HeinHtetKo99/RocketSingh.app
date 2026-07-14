@@ -22,19 +22,34 @@ function isStandaloneApp() {
   );
 }
 
-export default function SmartAppBanner() {
+function whenPageFullyLoaded() {
+  return new Promise<void>((resolve) => {
+    if (document.readyState === "complete") {
+      resolve();
+      return;
+    }
+    window.addEventListener("load", () => resolve(), { once: true });
+  });
+}
+
+type SmartAppBannerProps = {
+  /** Wait until roadblock has finished (shown & closed, skipped, or timed out). */
+  ready?: boolean;
+};
+
+export default function SmartAppBanner({ ready = true }: SmartAppBannerProps) {
   const [visible, setVisible] = useState(false);
   const [hostname, setHostname] = useState("rocketsingh.app");
 
   useEffect(() => {
+    if (!ready) return;
     if (isStandaloneApp()) return;
     if (!isMobileBrowser()) return;
 
-    setHostname(window.location.hostname.replace(/^www\./, ""));
-    setVisible(true);
-    document.documentElement.dataset.smartBanner = "visible";
-
+    let cancelled = false;
     let hidden = false;
+    let timer: number | undefined;
+
     const hide = () => {
       if (hidden) return;
       hidden = true;
@@ -46,15 +61,25 @@ export default function SmartAppBanner() {
       if (window.scrollY > SCROLL_THRESHOLD) hide();
     };
 
-    const timer = window.setTimeout(hide, AUTO_HIDE_MS);
-    window.addEventListener("scroll", onScroll, { passive: true });
+    (async () => {
+      await whenPageFullyLoaded();
+      if (cancelled) return;
+
+      setHostname(window.location.hostname.replace(/^www\./, ""));
+      setVisible(true);
+      document.documentElement.dataset.smartBanner = "visible";
+
+      timer = window.setTimeout(hide, AUTO_HIDE_MS);
+      window.addEventListener("scroll", onScroll, { passive: true });
+    })();
 
     return () => {
-      window.clearTimeout(timer);
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
       window.removeEventListener("scroll", onScroll);
       delete document.documentElement.dataset.smartBanner;
     };
-  }, []);
+  }, [ready]);
 
   if (!visible) return null;
 
