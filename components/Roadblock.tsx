@@ -1,136 +1,223 @@
-'use client';
+"use client";
 
 import { useEffect, useState, useCallback } from "react";
 
-const RoadBlock = () => {
-  const today = new Date();
-  const day = today.getDate();
-  const monthNames = [
-    "january","february","march","april","may","june",
-    "july","august","september","october","november","december","default"
-  ];
-  const month = monthNames[today.getMonth()];
+const COOKIE_NAME = "roadblock_seen";
+const IMAGE_LOAD_BUDGET_MS = 6_000;
+const CLOSE_UNLOCK_SECONDS = 6;
+const AUTO_CLOSE_SECONDS = 6;
 
-  // --- STATES ---
-  const [showRoadBlock, setShowRoadBlock] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(40); // total display time
-  const [displayTimeLeft, setDisplayTimeLeft] = useState(10); // X button timer
+const MONTH_NAMES = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+] as const;
 
-  // --- Close Function ---
-  const onClose = useCallback(() => {
-    document.body.classList.remove('hideScroll');
-    document.body.classList.add('showScroll');
-    setShowRoadBlock(false);
-  }, []);
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
 
-  // --- Preload image and show roadblock after it's loaded ---
-  useEffect(() => {
-    const hasSeen = sessionStorage.getItem("roadblock_seen");
-    if (hasSeen) return; // already seen in session
+function getCookie(name: string) {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie.match(
+    new RegExp(`(?:^|; )${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}=([^;]*)`)
+  );
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function setDailyCookie(name: string, value: string) {
+  document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=86400; Path=/; SameSite=Lax`;
+}
+
+function loadImage(src: string, signal: AbortSignal) {
+  return new Promise<boolean>((resolve) => {
+    if (signal.aborted) {
+      resolve(false);
+      return;
+    }
 
     const img = new Image();
-    img.src = `/roadblock/${month}/${day}.jpg`;
-    img.onload = () => {
-      setImageLoaded(true);
-      setShowRoadBlock(true);
-      sessionStorage.setItem("roadblock_seen", "true");
-      document.body.classList.add('hideScroll'); // hide scroll immediately
+    const done = (ok: boolean) => {
+      img.onload = null;
+      img.onerror = null;
+      resolve(ok);
     };
-    img.onerror = () => {
-      // fallback to default image
-      const defaultImg = new Image();
-      defaultImg.src = "/roadblock/default/default.jpg";
-      defaultImg.onload = () => {
-        setImageLoaded(true);
-        setShowRoadBlock(true);
-        sessionStorage.setItem("roadblock_seen", "true");
-        document.body.classList.add('hideScroll');
-      };
-      defaultImg.onerror = onClose; // if default image fails, just close
-    };
-  }, [month, day, onClose]);
 
-  // --- Force-close timer ---
+    img.onload = () => done(true);
+    img.onerror = () => done(false);
+    signal.addEventListener("abort", () => done(false), { once: true });
+    img.src = src;
+  });
+}
+
+type RoadBlockProps = {
+  onSettled?: () => void;
+};
+
+const RoadBlock = ({ onSettled }: RoadBlockProps) => {
+  const today = new Date();
+  const day = today.getDate();
+  const month = MONTH_NAMES[today.getMonth()];
+
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageReady, setImageReady] = useState(false);
+  const [showRoadBlock, setShowRoadBlock] = useState(false);
+  const [displayTimeLeft, setDisplayTimeLeft] = useState(CLOSE_UNLOCK_SECONDS);
+  const [isNarrow, setIsNarrow] = useState(false);
+
+  const settle = useCallback(() => {
+    onSettled?.();
+  }, [onSettled]);
+
+  const onClose = useCallback(() => {
+    document.body.classList.remove("hideScroll");
+    document.body.classList.add("showScroll");
+    setShowRoadBlock(false);
+    settle();
+  }, [settle]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 549px)");
+    const sync = () => setIsNarrow(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  // Preload image (6s budget), then show roadblock — once per day via cookie
+  useEffect(() => {
+    const seen = getCookie(COOKIE_NAME);
+    if (seen === todayKey()) {
+      settle();
+      return;
+    }
+
+    const controller = new AbortController();
+    let finished = false;
+
+    const finish = (src: string | null) => {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(timeout);
+
+      if (!src) {
+        settle();
+        return;
+      }
+
+      setDailyCookie(COOKIE_NAME, todayKey());
+      setImageSrc(src);
+      setShowRoadBlock(true);
+      document.body.classList.add("hideScroll");
+    };
+
+    const timeout = window.setTimeout(() => {
+      controller.abort();
+      finish(null);
+    }, IMAGE_LOAD_BUDGET_MS);
+
+    (async () => {
+      const primary = `/roadblock/${month}/${day}.jpg`;
+      if (await loadImage(primary, controller.signal)) {
+        finish(primary);
+        return;
+      }
+      if (controller.signal.aborted || finished) return;
+
+      const fallback = "/roadblock/default/default.jpg";
+      if (await loadImage(fallback, controller.signal)) {
+        finish(fallback);
+        return;
+      }
+      if (controller.signal.aborted || finished) return;
+
+      finish(null);
+    })();
+
+    return () => {
+      finished = true;
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [month, day, settle]);
+
   useEffect(() => {
     if (!showRoadBlock) return;
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          onClose();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
+    const timer = window.setTimeout(onClose, AUTO_CLOSE_SECONDS * 1000);
+    return () => window.clearTimeout(timer);
   }, [showRoadBlock, onClose]);
 
-  // --- Close button display timer ---
   useEffect(() => {
-    if (!showRoadBlock) return;
+    if (!showRoadBlock || !imageReady) return;
     const timer = setInterval(() => {
-      setDisplayTimeLeft(prev => (prev <= 1 ? 0 : prev - 1));
+      setDisplayTimeLeft((prev: number) => (prev <= 1 ? 0 : prev - 1));
     }, 1000);
     return () => clearInterval(timer);
-  }, [showRoadBlock]);
+  }, [showRoadBlock, imageReady]);
 
-  // --- Image Error Handler ---
-  const handleImageError = () => onClose();
+  if (!showRoadBlock || !imageSrc) return null;
 
   return (
-    <>
-      {showRoadBlock && imageLoaded && (
-        <div className="fixed inset-0 bg-[#D0D0D0] z-9999 flex items-center justify-center">
-          <div className="relative">
-            {/* Close Button */}
-            <button
-              onClick={displayTimeLeft <= 0 ? onClose : undefined}
-              className={`sm:-top-2.5 sm:-right-2.5 ${window.innerWidth < 550 ? "top-10 right-0" : "-top-2.5 -right-2.5"}`}
-              style={{
-                backgroundColor: "#055d59",
-                borderRadius: "50%",
-                border: "0px",
-                width: "40px",
-                height: "40px",
-                textAlign: "center",
-                position: "absolute",
-                color: "white",
-                fontSize: "20px",
-                fontWeight: "bold",
-                cursor: displayTimeLeft <= 0 ? "pointer" : "not-allowed",
-              }}
-            >
-              {displayTimeLeft <= 0 ? "X" : displayTimeLeft}
-            </button>
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#D0D0D0]">
+      <div className="relative">
+        {imageReady && (
+          <button
+            type="button"
+            onClick={displayTimeLeft <= 0 ? onClose : undefined}
+            aria-label={displayTimeLeft <= 0 ? "Close advertisement" : undefined}
+            className={
+              isNarrow
+                ? "absolute top-10 right-0"
+                : "absolute -top-2.5 -right-2.5 sm:-top-2.5 sm:-right-2.5"
+            }
+            style={{
+              backgroundColor: "#055d59",
+              borderRadius: "50%",
+              border: "0px",
+              width: "40px",
+              height: "40px",
+              textAlign: "center",
+              color: "white",
+              fontSize: "20px",
+              fontWeight: "bold",
+              cursor: displayTimeLeft <= 0 ? "pointer" : "not-allowed",
+            }}
+          >
+            {displayTimeLeft <= 0 ? "X" : displayTimeLeft}
+          </button>
+        )}
 
-            {/* Roadblock Image */}
-            <a href="#" target="_blank" rel="noopener noreferrer">
-              <img
-                src={`/roadblock/${month}/${day}.jpg`}
-                onError={(e) => {
-                  const originalSrc = e.currentTarget.src;
-                  e.currentTarget.onerror = null;
-                  if (!originalSrc.includes("default/default.jpg")) {
-                    e.currentTarget.src = "/roadblock/default/default.jpg";
-                  } else {
-                    handleImageError();
-                  }
-                }}
-                className="img-fluid rounded"
-                style={{
-                  borderRadius: "3%",
-                  objectFit: "contain",
-                  height: "550px",
-                  width: "550px",
-                }}
-                alt="Advertisement"
-              />
-            </a>
-          </div>
-        </div>
-      )}
-    </>
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          <img
+            src={imageSrc}
+            ref={(el) => {
+              if (el?.complete && el.naturalWidth > 0) setImageReady(true);
+            }}
+            onLoad={() => setImageReady(true)}
+            className="img-fluid rounded"
+            style={{
+              borderRadius: "3%",
+              objectFit: "contain",
+              height: "550px",
+              width: "550px",
+              opacity: imageReady ? 1 : 0,
+              display: "block",
+            }}
+            alt="Advertisement"
+          />
+        </a>
+      </div>
+    </div>
   );
 };
 
